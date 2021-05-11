@@ -5,6 +5,7 @@
     <Sidebar />
     <router-view></router-view>
     <Footer />
+    <Login />
   </div>
 </template>
 
@@ -13,6 +14,8 @@
 import Header from "./components/shared/Header.vue";
 import Sidebar from "./components/shared/Sidebar.vue";
 import Footer from "./components/shared/Footer.vue";
+import Login from "./components/Login.vue";
+import Login from './components/Login.vue';
 
 export default {
   name: "App",
@@ -20,6 +23,7 @@ export default {
     Header,
     Sidebar,
     Footer,
+    Login,
   },
 };
 </script>
