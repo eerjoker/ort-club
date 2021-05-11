@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-sidebar id="sidebar">
     <Login />
     <ul>
       <li>
@@ -10,7 +10,7 @@
         <router-link to="/actividades">Clases</router-link>
       </li>
     </ul>
-  </div>
+  </b-sidebar>
 </template>
 
 <script>

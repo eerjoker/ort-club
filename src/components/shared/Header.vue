@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-button v-b-toggle.sidebar>Toggle Sidebar</b-button>
     <ul>
       <li>
         <router-link to="/usuario">Usuario</router-link>
@@ -13,7 +14,7 @@ export default {
   name: "Header",
   props: {
 
-  },
+  }
 };
 </script>
 
