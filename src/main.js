@@ -2,7 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import Router from "vue-router";
 import SidebarPlugin from "bootstrap-vue";
-
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Usuario from "./components/Usuario.vue";
 import Actividades from "./components/Actividades.vue";
 import Login from "./components/Login.vue"
