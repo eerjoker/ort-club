@@ -1,6 +1,11 @@
 <template>
   <b-sidebar id="sidebar">
-    <Login />
+    <div v-if="true">
+      <Login />
+    </div>
+    <div v-if="false">
+      <!-- Acá va el registro para nuevos usuarios -->
+    </div>
     <ul>
       <li>
         <!-- ver como pasar parametros por el router -->

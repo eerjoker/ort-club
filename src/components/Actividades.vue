@@ -4,7 +4,10 @@
 
 <script>
 export default {
+  name: "Actividades",
+  props: {
 
+  }
 }
 </script>
 
