@@ -4,8 +4,8 @@
     <Header />
     <Sidebar />
     <router-view></router-view>
-    <Footer />
     <Home />
+    <Footer />
   </div>
 </template>
 
