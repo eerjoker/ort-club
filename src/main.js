@@ -2,7 +2,6 @@ import Vue from "vue";
 import App from "./App.vue";
 import Router from "vue-router";
 import Vuex from 'vuex'
-Vue.use(Vuex)
 import 'es6-promise/auto'
 import SidebarPlugin from "bootstrap-vue";
 import 'bootstrap/dist/css/bootstrap.css';
