@@ -11,8 +11,9 @@ import Usuario from "./components/Usuario.vue";
 import Actividades from "./components/Actividades.vue";
 import Login from "./components/Login.vue"
 
-Vue.use(Router).use(SidebarPlugin);
-Vue.use(Vuex)
+Vue.use(Router)
+   .use(SidebarPlugin)
+   .use(Vuex)
 Vue.config.productionTip = false;
 
 const routes = [

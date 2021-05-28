@@ -38,6 +38,9 @@
         </li>
       </ul>
     </div>
+    <div>
+      <button class="btn btn-primary" @click="incrementar">Aumentar</button>
+    </div>
   </b-sidebar>
 </template>
 
@@ -48,6 +51,11 @@ export default {
   name: "Sidebar",
   components: {
     Login
+  },
+  methods: {
+    incrementar() {
+      this.$store.commit('increment')
+    }
   }
 }
 </script>
