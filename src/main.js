@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import Router from "vue-router";
-import Vuex from 'vuex'
+import store from './store.js'
 import 'es6-promise/auto'
 import SidebarPlugin from "bootstrap-vue";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,7 +14,6 @@ import Registro from "./components/Registro.vue"
 
 Vue.use(Router)
    .use(SidebarPlugin)
-   .use(Vuex)
 Vue.config.productionTip = false;
 
 const routes = [
@@ -29,17 +28,6 @@ const router = new Router({
   routes,
   mode: "hash"
 });
-
-const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  }
-})
 
 new Vue({
   router,
