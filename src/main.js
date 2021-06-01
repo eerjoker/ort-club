@@ -10,6 +10,7 @@ import Home from "./components/Home.vue";
 import Usuario from "./components/Usuario.vue";
 import Actividades from "./components/Actividades.vue";
 import Login from "./components/Login.vue"
+import Registro from "./components/Registro.vue"
 
 Vue.use(Router)
    .use(SidebarPlugin)
@@ -20,7 +21,8 @@ const routes = [
   { path: "/", component: Home },
   { path: "/usuario", component: Usuario },
   { path: "/actividades", component: Actividades },
-  { path: "/login", component: Login}
+  { path: "/login", component: Login},
+  {path: "/registro", component: Registro}
 ];
 
 const router = new Router({

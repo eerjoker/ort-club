@@ -3,8 +3,8 @@
     <div v-if="false">
       <Login />
     </div>
-    <div v-if="false">
-      <!-- Acá va el registro para nuevos usuarios -->
+    <div v-if="true">
+      <Registro/>
     </div>
     <div>
       <ul class="list-unstyled ps-0 mt-2">
@@ -46,11 +46,13 @@
 
 <script>
 import Login from '../Login';
+import Registro from '../Registro';
 
 export default {
   name: "Sidebar",
   components: {
-    Login
+    Login,
+    Registro
   },
   methods: {
     incrementar() {
