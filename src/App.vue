@@ -5,6 +5,7 @@
     <Sidebar />
     <Calendar />
     <router-view></router-view>
+    <Home />
     <Footer />
   </div>
 </template>
@@ -15,6 +16,8 @@ import Header from "./components/shared/Header.vue";
 import Sidebar from "./components/shared/Sidebar.vue";
 import Footer from "./components/shared/Footer.vue";
 import Calendar from "./components/Calendar.vue"
+import Home from "./components/Home.vue";
+
 
 export default {
   name: "App",
@@ -22,7 +25,8 @@ export default {
     Header,
     Sidebar,
     Footer,
-    Calendar
+    Calendar,
+    Home
   },
 };
 </script>
