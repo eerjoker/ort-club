@@ -5,7 +5,14 @@ import Router from "vue-router";
 import Usuario from "./components/Usuario.vue";
 import Actividades from "./components/Actividades.vue";
 
+import VCalendar from "v-calendar";
+
 Vue.use(Router)
+
+Vue.use(VCalendar, {
+  componentPrefix: 'vc',  // Use <vc-calendar /> instead of <v-calendar />
+});
+
 Vue.config.productionTip = false;
 
 const routes = [
