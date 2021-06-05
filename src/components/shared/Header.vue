@@ -12,7 +12,7 @@
           <router-link to="/usuario" class="nav-link">{{ nombreUsuarioActual }}</router-link>
         </li>
         <li class="navbar-item" v-if="hayUsuario">
-          <router-link to="/" class="nav-link" v-on:click="desloguear">Salir</router-link>
+          <router-link to="/" class="nav-link"><span @click="desloguear">Salir</span></router-link>
         </li>
       </ul>
       <div class="d-flex ms-3 ms-lg-4">
