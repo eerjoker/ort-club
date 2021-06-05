@@ -1,9 +1,9 @@
 <template>
   <b-sidebar id="sidebar">
-    <div v-if="false">
+    <div v-if="!hayUsuario">
       <Login />
     </div>
-    <div v-if="true">
+    <div v-if="false">
       <Registro/>
     </div>
     <div>
@@ -54,9 +54,9 @@ export default {
     Login,
     Registro
   },
-  methods: {
-    incrementar() {
-      this.$store.commit('increment')
+  computed: {
+    hayUsuario () {
+      return this.$store.getters.hayUsuario
     }
   }
 }

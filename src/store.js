@@ -6,28 +6,36 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     usuarioActual: null,
-    usuarios: {
-      u1: {
+    usuarios: [
+      {
         id: 100,
         nombre: 'Esteban',
-        mail: '@mail.com'
+        mail: '1@mail.com',
+        password: '123'
       }
-    }
+    ]
   },
-  getter: {
-    nombreUsuarioActual (state) {
-      return state.nombreUsuario
+  getters: {
+    nombreUsuarioActual: (state) => {
+      if(state.usuarioActual) {
+        return state.usuarioActual.nombre
+      } else {
+        return ""
+      }
     },
-    usuarioLogin: (state) => (email, pass) => {
-      return state.usuarios.filter(u => u.email == email && u.pass == pass)[0]
+    usuarioLogin: (state) => (email, password) => {
+      return state.usuarios.find(u => u.mail == email && u.password == password)
+    },
+    hayUsuario: (state) => {
+      return state.usuarioActual != null
     }
   },
   mutations: {
     login (state, payload) {
-      state.nombreUsuario = payload.usuario
+      state.usuarioActual = payload.usuario
     },
     logout (state) {
-      state.nombreUsuario = null
+      state.usuarioActual = null
     }
   },
   actions: {
