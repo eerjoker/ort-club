@@ -21,7 +21,7 @@
       <b-form-group id="input-group-2" label="Contraseña:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.pass"
           placeholder="Ingresar contraseña"
           required
         ></b-form-input>
@@ -40,7 +40,7 @@ export default {
       return {
         form: {
           email: '',
-          name: ''          
+          pass: ''          
         },
         show: true
       }},

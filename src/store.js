@@ -5,12 +5,37 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 0,
-    usuario: null
+    usuarioActual: null,
+    usuarios: {
+      u1: {
+        id: 100,
+        nombre: 'Esteban',
+        mail: '@mail.com'
+      }
+    }
+  },
+  getter: {
+    nombreUsuarioActual (state) {
+      return state.nombreUsuario
+    },
+    usuarioLogin: (state) => (email, pass) => {
+      return state.usuarios.filter(u => u.email == email && u.pass == pass)[0]
+    }
   },
   mutations: {
-    increment (state) {
-      state.count++
+    login (state, payload) {
+      state.nombreUsuario = payload.usuario
+    },
+    logout (state) {
+      state.nombreUsuario = null
+    }
+  },
+  actions: {
+    loguear (context, usuario) {
+      context.commit('login', usuario)
+    },
+    desloguear (context) {
+      context.commit('logout')
     }
   }
 })

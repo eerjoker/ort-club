@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Soy el usuario actual</p>
-    <p>Contador: {{ count }}</p>
+    <!-- <p>Contador: {{ count }}</p> -->
   </div>
 </template>
 

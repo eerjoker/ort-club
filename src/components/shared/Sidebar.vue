@@ -38,9 +38,9 @@
         </li>
       </ul>
     </div>
-    <div>
+    <!-- <div>
       <button class="btn btn-primary" @click="incrementar">Aumentar</button>
-    </div>
+    </div> -->
   </b-sidebar>
 </template>
 
