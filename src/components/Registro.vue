@@ -47,7 +47,7 @@
         <b-form-input
           id="input-3"
           v-model="form.dni"
-          type="number"
+          type="text"
           placeholder="Ingresar DNI"
           required
         ></b-form-input>
@@ -77,7 +77,8 @@
       <b-form-group id="input-group-2" label="Contraseña:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.password"
+          type="password"
           placeholder="Ingresar contraseña"
           required
         ></b-form-input>

@@ -21,7 +21,8 @@
       <b-form-group id="input-group-2" label="Contraseña:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.password"
+          type="password"
           placeholder="Ingresar contraseña"
           required
         ></b-form-input>
@@ -36,20 +37,29 @@
 <script>
 export default {
   name: "Login",
- data() {
-      return {
-        form: {
-          email: '',
-          name: ''          
-        },
-        show: true
-      }},
+  data() {
+    return {
+      form: {
+        email: '',
+        password: ''
+      },
+      show: true
+    }},
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
+        this.loguear()
       },
-     
+      loguear() {
+        const usuario = this.$store.getters.usuarioLogin(this.form.email, this.form.password)
+        if(usuario) {
+          this.$store.dispatch('loguear', {
+            usuario: usuario
+          })
+        } else {
+          alert('Credenciales incorrectas.')
+        }
+      }
     }
 };
 </script>
