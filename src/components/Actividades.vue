@@ -3,8 +3,8 @@
     <h1>Actividades de {{tipo}} </h1>
 
     <ul>
-      <li v-for="(actividad, index) in $store.getters.getActividadesPorTipo(tipo)" :key="index">
-         {{actividad.nombre}} 
+      <li v-for="(actividad, index) in $store.getters.getActividadesPorTipo(tipo)" :key="index">      
+        <button class="btn btn-link" @click="navegarHaciaView(actividad.id)"> {{actividad.nombre}} </button>
       </li>
     </ul>
 
@@ -27,6 +27,14 @@ export default {
   //     alert(this.actividades[0])    
   //   }
   
+  methods:{
+        navegarHaciaView(idActividad){
+            let miRuta = '/actividades/' + idActividad
+            this.$router.push(miRuta)
+        }
+    }
+
+
 }
 </script>
 
