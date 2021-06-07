@@ -53,9 +53,7 @@ export default {
       loguear() {
         const usuario = this.$store.getters.usuarioLogin(this.form.email, this.form.password)
         if(usuario) {
-          this.$store.dispatch('loguear', {
-            usuario: usuario
-          })
+          this.$store.dispatch('loguear', usuario)
         } else {
           alert('Credenciales incorrectas.')
         }
