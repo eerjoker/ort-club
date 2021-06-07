@@ -7,7 +7,7 @@
         </div>
         <div id="deportes">
           <ul class="list-unstyled pb-1 small">
-            <li><router-link to="/actividades" class="link-dark">Fútbol</router-link></li>
+            <li><router-link to="/actividades" idTipo="Futbol" class="link-dark">Fútbol</router-link></li>
             <li><router-link to="/actividades" class="link-dark">Basquet</router-link></li>
             <li><router-link to="/actividades" class="link-dark">Rugby</router-link></li>
           </ul>
@@ -31,6 +31,11 @@
 
 <script>
 export default {
-  
+ methods:{
+        navegarHaciaView(idTipo){
+            let miRuta = '/actividades/' + idTipo
+            this.$router.push(miRuta)
+        }
+    }
 }
 </script>
