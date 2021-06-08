@@ -5,6 +5,9 @@
         <Login />
       </div>
       <div v-if="hayUsuario">
+        <router-link to="/listaUsuarios" class="nav-link">Usuarios</router-link>
+      </div>
+      <div v-if="hayUsuario">
         <ListadoTiposActividad />
       </div>
     </div>
