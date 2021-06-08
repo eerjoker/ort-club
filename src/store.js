@@ -63,7 +63,6 @@ const store = new Vuex.Store({
       return state.usuarios
     },
     getActividadesPorTipo: (state) => (tipo) => {
-      debugger
       return state.actividades.filter(act => act.idTipo == tipo)
     },
     getActividades: (state) => {

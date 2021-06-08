@@ -24,8 +24,8 @@ Vue.config.productionTip = false;
 const routes = [
   { path: "/", component: Home },
   { path: "/usuario", component: Usuario },
-  { path: "/actividades", component: Actividades,
-    children: [{path: ":id", component: Actividad}] },
+  { path: "/actividades", component: Actividades},
+  {path: "/actividad/:id", component: Actividad},
   { path: "/registro", component: Registro }
 ];
 

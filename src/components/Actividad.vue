@@ -1,14 +1,14 @@
 <template>
-  <h1>Actividad</h1>
+  <div>
+    <p>Soy el actividad actual</p>
+    {{ $route.params.id }}  
+   
+  </div>
 </template>
 
 <script>
-export default {
-name:"Actividad",
 
+export default {
+name: "Actividad"
 }
 </script>
-
-<style>
-
-</style>
