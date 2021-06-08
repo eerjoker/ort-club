@@ -11,6 +11,7 @@ import Usuario from "./components/Usuario.vue";
 import Actividades from "./components/Actividades.vue";
 import Registro from "./components/Registro.vue"
 import VCalendar from "v-calendar";
+import ListaUsuarios from './components/ListaUsuarios.vue'
 
 Vue.use(Router)
    .use(SidebarPlugin)
@@ -24,7 +25,8 @@ const routes = [
   { path: "/", component: Home },
   { path: "/usuario", component: Usuario },
   { path: "/actividades", component: Actividades },
-  { path: "/registro", component: Registro }
+  { path: "/registro", component: Registro },
+  { path: "/listaUsuarios", component: ListaUsuarios }
 ];
 
 const router = new Router({
