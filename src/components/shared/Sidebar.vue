@@ -5,7 +5,7 @@
         <Sesion />
       </div>
       <div v-if="hayUsuario">
-        <ListadoActividades />
+        <ListadoTiposActividad />
       </div>
     </div>
   </b-sidebar>
@@ -13,13 +13,13 @@
 
 <script>
 import Sesion from '../Sesion.vue';
-import ListadoActividades from '../ListadoActividades.vue';
+import ListadoTiposActividad from '../ListadoTiposActividad.vue';
 
 export default {
   name: "Sidebar",
   components: {
     Sesion,
-    ListadoActividades
+    ListadoTiposActividad
   },
   computed: {
     hayUsuario () {

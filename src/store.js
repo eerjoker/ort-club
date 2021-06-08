@@ -9,41 +9,33 @@ const store = new Vuex.Store({
     url: 'https://60bd1820b8ab3700175a020d.mockapi.io/api/',
     usuarioActual: null,
     usuarios: [],
-    actividades:[{
-      id:1,
-      nombre:'Clase de futbol turno mañana',
-      descripcion: 'Clases para chicos de 8 a 12 años de 10 a 11 hs',
-      idTipo: 'Futbol',
-      esDeporte: true
-    },
-    {
-      id:2,
-      nombre:'Clase de futbol turno tarde',
-      descripcion: 'Clasespara chicos de 8 a 12 años de 16 a 17 hs',
-      idTipo: 'Futbol',
-      esDeporte: true
-    },
-    {
-      id:3,
-      nombre:'Clase de basquet turno mañana',
-      descripcion: 'Clases chicos de 8 a 12 años de 11 a 12 hs',
-      idTipo: 'Basquet',
-      esDeporte: true
-    },
-    {
-      id:4,
-      nombre:'Cancha de futbol 5',
-      descripcion: 'Alquier de canchas en pasto sintetico',
-      idTipo: 'Futbol',
-      esDeporte: true
-    },
-    {
-      id:5,
-      nombre:'Clase de basquet turno mañana',
-      descripcion: 'Clases para chicos de 8 a 12 años de 17 a 18 hs',
-      idTipo: 'Basquet',
-      esDeporte: true
-    }]
+    actividades:[],
+    tiposActividad: [
+      {
+        id: 1,
+        descripcion: 'Futbol'
+      },
+      {
+        id: 2,
+        descripcion: 'Basquet'
+      },
+      {
+        id: 3,
+        descripcion: 'Yoga'
+      },
+      {
+        id: 4,
+        descripcion: 'Crossfit'
+      },
+      {
+        id: 5,
+        descripcion: 'Natación'
+      },
+      {
+        id: 6,
+        descripcion: 'Tenis'
+      }
+    ]
   },
   getters: {
     nombreUsuarioActual: (state) => {
@@ -62,17 +54,22 @@ const store = new Vuex.Store({
     getUsuarios: (state) => {
       return state.usuarios
     },
-    getActividadesPorTipo: (state) => (tipo) => {
-      debugger
-      return state.actividades.filter(act => act.idTipo == tipo)
-    },
     getActividades: (state) => {
       return state.actividades
+    },
+    getActividadesPorTipo: (state) => (idTipo) => {
+      return state.actividades.filter(act => act.idTipo == idTipo)
+    },
+    getTiposActividad: (state) => {
+      return state.tiposActividad
     }
   },
   mutations: {
     setUsuarios (state, usuarios) {
       state.usuarios = usuarios
+    },
+    setActividades (state, actividades) {
+      state.actividades = actividades
     },
     login (state, payload) {
       state.usuarioActual = payload.usuario
@@ -89,6 +86,17 @@ const store = new Vuex.Store({
           throw new Error('Usuarios: ' + usuariosResponse.statusText)
         }
         context.commit('setUsuarios', usuariosResponse.data)
+      } catch(err) {
+        alert(err.message)
+      }
+    },
+    async setActividades (context) {
+      try {
+        const actividadesResponse = await axios.get(`${ context.state.actividades }/actividades`)
+        if(actividadesResponse.status != 200) {
+          throw new Error('Actividades: ' + actividadesResponse.statusText)
+        }
+        context.commit('setActividades', actividadesResponse.data)
       } catch(err) {
         alert(err.message)
       }

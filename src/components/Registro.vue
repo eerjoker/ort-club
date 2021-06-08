@@ -1,15 +1,16 @@
 <template>
  <div>
-    <b-form @submit="onSubmit" v-if="show">
+    <b-form  @submit="onSubmit" v-if="show">
     
       <b-form-group
-        id="input-group-1"
+        id="group-nombre"
+        class="d-flex justify-content-between align-middle"
         label="Nombre:"
-        label-for="input-1"
+        label-for="nombre"
       >
      
         <b-form-input
-          id="input-1"
+          id="nombre"
           v-model="form.nombre"
           type="text"
           placeholder="Ingresar nombre"
@@ -21,13 +22,14 @@
           <br>
 
           <b-form-group
-        id="input-group-2"
+        id="group-apellido"
+        class="d-flex justify-content-between align-middle"
         label="Apellido:"
-        label-for="input-2"
+        label-for="apellido"
       >
      
         <b-form-input
-          id="input-2"
+          id="apellido"
           v-model="form.apellido"
           type="text"
           placeholder="Ingresar apellido"
@@ -39,13 +41,14 @@
           <br>
     
     <b-form-group
-        id="input-group-3"
+        id="group-dni"
+        class="d-flex justify-content-between align-middle"
         label="DNI:"
-        label-for="input-3"
+        label-for="dni"
       >
      
         <b-form-input
-          id="input-3"
+          id="dni"
           v-model="form.dni"
           type="text"
           placeholder="Ingresar DNI"
@@ -57,13 +60,14 @@
           <br>
 
       <b-form-group
-        id="input-group-1"
+        id="group-email"
+        class="d-flex justify-content-between align-middle"
         label="Email:"
-        label-for="input-1"
+        label-for="email"
       >
      
         <b-form-input
-          id="input-1"
+          id="email"
           v-model="form.email"
           type="email"
           placeholder="Ingresar email"
@@ -74,9 +78,9 @@
 
           <br>
 
-      <b-form-group id="input-group-2" label="Contraseña:" label-for="input-2">
+      <b-form-group id="group-password" class="d-flex justify-content-between align-middle" label="Contraseña:" label-for="password">
         <b-form-input
-          id="input-2"
+          id="password"
           v-model="form.password"
           type="password"
           placeholder="Ingresar contraseña"

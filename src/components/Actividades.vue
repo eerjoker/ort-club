@@ -1,6 +1,6 @@
 <template>
   <div id="Actividades">
-    <h1>Actividades de {{tipo}} </h1>
+    <h1>Actividades de {{tipo.descripcion}} </h1>
 
     <ul>
       <li v-for="actividad in actividades" :key="actividad.id">
@@ -15,16 +15,19 @@
 export default {
   name: "Actividades",
   data:()=>({
-   actividades: [],
-   tipo: 'Futbol'
+    tipo: {
+      id: 1,
+      descripcion: 'Futbol'
+    }
   }),
   props: {
     //idTipo: String
   },
-  created (){
-    this.actividades = this.$store.getters.getActividadesPorTipo(this.tipo)
+  computed: {
+    actividades() {
+      return this.$store.getters.getActividadesPorTipo(this.tipo.id)
+    }
   }
-  
 }
 </script>
 
