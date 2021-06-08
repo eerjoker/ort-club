@@ -4,7 +4,7 @@
 
     <ul>
       <li v-for="actividad in actividades" :key="actividad.id">
-         {{actividad.nombre}} 
+         <button class="btn btn-link" @click="navegarHaciaView(actividad.id)"> {{actividad.nombre}} </button>
       </li>
     </ul>
 
@@ -20,8 +20,11 @@ export default {
       descripcion: 'Futbol'
     }
   }),
-  props: {
-    //idTipo: String
+  methods:{
+    navegarHaciaView(idActividad){
+      let miRuta = '/actividad/' + idActividad
+      this.$router.push(miRuta)
+    }
   },
   computed: {
     actividades() {

@@ -9,7 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import Home from "./components/Home.vue";
 import Usuario from "./components/Usuario.vue";
 import Actividades from "./components/Actividades.vue";
-import Registro from "./components/Registro.vue"
+import Actividad from "./components/Actividad.vue"
 import VCalendar from "v-calendar";
 
 Vue.use(Router)
@@ -24,7 +24,8 @@ const routes = [
   { path: "/", component: Home },
   { path: "/usuario", component: Usuario },
   { path: "/actividades", component: Actividades },
-  { path: "/registro", component: Registro }
+  { path: "/actividades/:id", component: Actividades },
+  { path: "/actividad/:id", component: Actividad }
 ];
 
 const router = new Router({

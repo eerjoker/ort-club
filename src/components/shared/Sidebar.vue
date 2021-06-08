@@ -2,7 +2,7 @@
   <b-sidebar id="sidebar" sidebar-class="p-3" title="OrtClub" shadow>
     <div>
       <div v-if="!hayUsuario">
-        <Sesion />
+        <Login />
       </div>
       <div v-if="hayUsuario">
         <ListadoTiposActividad />
@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import Sesion from '../Sesion.vue';
+import Login from "../Login.vue";
 import ListadoTiposActividad from '../ListadoTiposActividad.vue';
 
 export default {
   name: "Sidebar",
   components: {
-    Sesion,
+    Login,
     ListadoTiposActividad
   },
   computed: {
