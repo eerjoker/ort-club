@@ -1,10 +1,10 @@
 <template>
   <div id="Actividades">
     <h1>Actividades de {{tipo}} </h1>
-
+  
     <ul>
-      <li v-for="(actividad, index) in $store.getters.getActividadesPorTipo(tipo)" :key="index">
-         {{actividad.nombre}} 
+      <li v-for="actividad in actividades" :key="actividad.id">
+         <button class="btn btn-link" @click="navegarHaciaView(actividad.id)"> {{actividad.nombre}} </button>
       </li>
     </ul>
 
@@ -15,18 +15,21 @@
 export default {
   name: "Actividades",
   data:()=>({
-   actividades: [{nombre:'hola'}],
-   tipo: 'Futbol'
+   actividades: [],
+   tipo: 'Basquet'
   }),
-  props: {
-    //idTipo: String
+  created (){
+    this.actividades = this.$store.getters.getActividadesPorTipo(this.tipo)
   },
-  // created (){
-    
-  //     this.actividades = this.$store.getters.getActividadesPorTipo(this.tipo)
-  //     alert(this.actividades[0])    
-  //   }
   
+  methods:{
+        navegarHaciaView(idActividad){
+            let miRuta = '/actividad/' + idActividad
+            this.$router.push(miRuta)
+        }
+    }
+
+
 }
 </script>
 

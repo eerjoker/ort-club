@@ -9,6 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import Home from "./components/Home.vue";
 import Usuario from "./components/Usuario.vue";
 import Actividades from "./components/Actividades.vue";
+import Actividad from "./components/Actividad.vue"
 import Registro from "./components/Registro.vue"
 import VCalendar from "v-calendar";
 import ListaUsuarios from './components/ListaUsuarios.vue'
@@ -26,7 +27,9 @@ const routes = [
   { path: "/usuario", component: Usuario },
   { path: "/actividades", component: Actividades },
   { path: "/registro", component: Registro },
-  { path: "/listaUsuarios", component: ListaUsuarios }
+  { path: "/listaUsuarios", component: ListaUsuarios },
+  { path: "/actividades", component: Actividades },
+  { path: "/actividad/:id", component: Actividad },
 ];
 
 const router = new Router({
