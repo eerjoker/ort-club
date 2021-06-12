@@ -5,7 +5,7 @@
           <p class="my-auto">{{usuario.nombre}}</p>
           <div>
             <b-button class="m-1">Modificar</b-button>
-            <b-button class="m-1" variant="danger" @click="eliminarUsuario(usuario)">Eliminar</b-button>
+            <b-button class="m-1" variant="danger" @click="eliminarUsuario(usuario.id)">Eliminar</b-button>
           </div>         
         </div>
          
@@ -21,14 +21,10 @@ export default {
     usuarios: []
   }),
   methods: {
-    eliminarUsuario(usuario){
-      if(confirm("Esta seguro que desea eliminar este usuario")){
-        for (let index = 0; index < this.usuarios.length; index++) {
-          const element = this.usuarios[index];
-          if(element == usuario){
-            this.usuarios.splice(index, 1)
-          }
-        }
+    async eliminarUsuario(userId){
+      if(confirm("¿Esta seguro que desea eliminar este usuario?")){
+        this.usuarios.splice(userId-1, 1)
+        await axios.delete(`${ this.$store.state.url }/usuarios/${ userId }`)
       }
     }
   },
