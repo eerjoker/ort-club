@@ -1,6 +1,6 @@
 <template>
   <div id="Actividades">
-    <h1>Actividades de {{tipo.descripcion}} </h1>
+    <h1>Actividades de {{ descripcionTipo }} </h1>
 
     <ul>
       <li v-for="actividad in actividades" :key="actividad.id">
@@ -12,24 +12,53 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "Actividades",
   data:()=>({
-    tipo: {
-      id: 1,
-      descripcion: 'Futbol'
-    }
+    idTipo: -1,
+    actividades: []
   }),
   methods:{
     navegarHaciaView(idActividad){
       let miRuta = '/actividad/' + idActividad
       this.$router.push(miRuta)
+    },
+    async getActividades() {
+      try {
+        const actividadesResponse = await axios.get(`${ this.$store.state.url }/actividades?idTipo=${ this.idTipo }`)
+        if(actividadesResponse.status < 200 || actividadesResponse.status >= 300) {
+          throw new Error('Error al cargar las actividades: ' + actividadesResponse.statusText)
+        }
+        console.log(actividadesResponse.data);
+        this.actividades = actividadesResponse.data
+      } catch(err) {
+        alert(err.message)
+      }
     }
   },
   computed: {
-    actividades() {
-      return this.$store.getters.getActividadesPorTipo(this.tipo.id)
+    descripcionTipo () {
+      if(this.idTipo) {
+        return this.$store.getters.nombreTipoActividad(this.idTipo)
+      } else {
+        return ""
+      }
     }
+  },
+  async created() {
+    this.idTipo = this.$route.params.id
+    await this.getActividades()
+    this.$watch(
+      () => this.$route.params,
+      toParams => {
+        // react to route changes...
+        this.actividades = []
+        this.idTipo = toParams.id
+        this.getActividades()
+      }
+    )
   }
 }
 </script>

@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "Login",
   data() {
@@ -50,10 +52,10 @@ export default {
         event.preventDefault()
         this.loguear()
       },
-      loguear() {
-        const usuario = this.$store.getters.usuarioLogin(this.form.email, this.form.password)
-        if(usuario) {
-          this.$store.dispatch('loguear', usuario)
+      async loguear() {
+        const usuarioResponse = await axios.get(`${ this.$store.state.url }/usuarios?email=${ this.form.email }&password=${ this.form.password }`)
+        if(usuarioResponse.status >= 200 || usuarioResponse.status < 300) {
+          this.$store.dispatch('loguear', usuarioResponse.data[0])
         } else {
           alert('Credenciales incorrectas.')
         }
@@ -61,7 +63,3 @@ export default {
     }
 };
 </script>
-
-<style>
-
-</style>

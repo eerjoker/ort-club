@@ -1,6 +1,6 @@
 <template>
   <ul class="list-unstyled mx-auto w-50">
-      <li v-for="(usuario, id) in usuarios" :key="id" class="border">
+      <li v-for="usuario in usuarios" :key="usuario.id" class="border">
         <div class="d-flex justify-content-between m-1 p-1">
           <p class="my-auto">{{usuario.nombre}}</p>
           <div>
@@ -14,13 +14,12 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  data:()=>({
-   usuarios: []
+  data: () => ({
+    usuarios: []
   }),
-  created(){
-    this.usuarios = this.$store.getters.getUsuarios
-  },
   methods: {
     eliminarUsuario(usuario){
       if(confirm("Esta seguro que desea eliminar este usuario")){
@@ -33,6 +32,17 @@ export default {
       }
     }
   },
+  async created () {
+    try {
+      const usuariosResponse = await axios.get(`${ this.$store.state.url }/usuarios`)
+      if(usuariosResponse.status < 200 || usuariosResponse.status >= 300) {
+        throw new Error('Error al cargar los usuarios: ' + usuariosResponse.statusText)
+      }
+      this.usuarios = usuariosResponse.data
+    } catch(err) {
+      alert(err.message)
+    }
+  }
 };
 </script>
 

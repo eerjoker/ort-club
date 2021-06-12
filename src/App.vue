@@ -20,9 +20,6 @@ export default {
     Header,
     Sidebar,
     Footer
-  },
-  created: async function() {
-    await this.$store.dispatch("setUsuarios")
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <b-sidebar id="sidebar" sidebar-class="p-3" title="OrtClub" shadow>
+  <b-sidebar id="sidebar" sidebar-class="p-3" title="OrtClub" visible="true" shadow>
     <div>
       <div v-if="!hayUsuario">
         <Login />
