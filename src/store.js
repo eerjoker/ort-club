@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     url: 'https://60bd1820b8ab3700175a020d.mockapi.io/api/',
+    urlTurnos: 'https://60c5464cec8ef800175e1048.mockapi.io/api',
     usuarioActual: null,
     tiposActividad: [
       {

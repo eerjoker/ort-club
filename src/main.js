@@ -13,6 +13,7 @@ import Actividad from "./components/Actividad.vue"
 import VCalendar from "v-calendar";
 import ListaUsuarios from './components/ListaUsuarios.vue'
 import EditarUsuario from './components/EditarUsuario.vue'
+import ListaTurnos from './components/ListaTurnos.vue'
 
 Vue.use(Router)
    .use(SidebarPlugin)
@@ -29,7 +30,8 @@ const routes = [
   { path: "/actividades", component: Actividades },
   { path: "/actividades/:id", component: Actividades },
   { path: "/actividad/:id", component: Actividad },
-  { path: "/editarUsuario/:id", component: EditarUsuario }
+  { path: "/editarUsuario/:id", component: EditarUsuario },
+  { path: "/listaTurnos", component: ListaTurnos }
 ];
 
 const router = new Router({
