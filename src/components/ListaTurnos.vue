@@ -7,6 +7,7 @@
             <b-button class="m-1" variant="success" @click="navegarHaciaView('agregarTurno')">Agregar Turno</b-button>
             <input type="text" v-model="buscador" placeholder="Buscador de turnos">
        </div>
+      
       <li v-for="turno in turnosFiltrados" :key="turno.id" class="border">
         <div class="d-flex justify-content-between m-1 p-1">
           <p class="my-auto">{{turno.tituloTurno}}</p>
@@ -17,6 +18,7 @@
         </div>
          
       </li>
+  
   </ul>
   </div>
 </template>
