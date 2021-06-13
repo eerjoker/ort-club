@@ -8,12 +8,8 @@
         <router-link to="/listaUsuarios" class="nav-link">Usuarios</router-link>
       </div>
       <div v-if="hayUsuario">
-        <router-link to="/listaTurnos" class="nav-link">Turnos</router-link>
-      </div>
-      <div v-if="hayUsuario">
         <ListadoTiposActividad />
       </div>
-      
     </div>
   </b-sidebar>
 </template>
@@ -32,6 +28,9 @@ export default {
     hayUsuario () {
       return this.$store.getters.hayUsuario
     }
+  },
+  created() {
+    this.$root.$emit('bv::toggle::collapse', 'sidebar')
   }
 }
 </script>
