@@ -103,13 +103,6 @@ export default {
   name: "Registro",
  data() {
       return {
-        // form: {
-        //   email: '',
-        //   nombre: '',
-        //   apellido: '',
-        //   password:'',
-        //   dni:''          
-        // },
         usuarioId: -1,
         usuario: {},
         show: true
@@ -117,9 +110,8 @@ export default {
     methods: {
      onSubmit(event) {
         event.preventDefault()
-        // alert(JSON.stringify(this.form))
         this.agregarTurno()
-      
+        this.$router.push('/registroExitoso')
       },
       async agregarTurno(){
       console.log(this.turno)
@@ -128,18 +120,7 @@ export default {
     }
      
     },
-  //   async created(){
-  //   this.usuarioId = this.$route.params.id
-  //   try {
-  //     const usuariosResponse = await axios.get(`${ this.$store.state.url }/usuarios/${this.turnoId}`)
-  //     if(usuariosResponse.status < 200 || usuariosResponse.status >= 300) {
-  //       throw new Error('Error al cargar los usuarios: ' + usuariosResponse.statusText)
-  //     }
-  //     this.turno = usuariosResponse.data
-  //   } catch(err) {
-  //     alert(err.message)
-  //   }
-  // }
+
 };
 </script>
 

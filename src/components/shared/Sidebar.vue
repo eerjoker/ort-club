@@ -4,9 +4,12 @@
       <div v-if="!hayUsuario">
         <Login />
       </div>
+        <div v-if="hayUsuario">
+        <router-link to="/" class="nav-link">Home</router-link>
+      </div>
       <div v-if="hayUsuario">
         <router-link to="/listaUsuarios" class="nav-link">Usuarios</router-link>
-      </div>
+      </div> 
       <div v-if="hayUsuario">
         <router-link to="/listaTurnos" class="nav-link">Turnos</router-link>
       </div>

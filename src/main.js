@@ -16,6 +16,7 @@ import EditarUsuario from './components/EditarUsuario.vue'
 import ListaTurnos from './components/ListaTurnos.vue'
 import AgregarTurno from './components/AgregarTurno.vue'
 import EditarTurno from './components/EditarTurno.vue'
+import RegistroExitoso from './components/RegistroExitoso.vue'
 
 Vue.use(Router)
    .use(SidebarPlugin)
@@ -35,7 +36,8 @@ const routes = [
   { path: "/editarUsuario/:id", component: EditarUsuario },
   { path: "/listaTurnos", component: ListaTurnos },
   { path: "/agregarTurno", component: AgregarTurno },
-  { path: "/editarTurno/:id", component: EditarTurno }
+  { path: "/editarTurno/:id", component: EditarTurno },
+  { path: "/registroExitoso", component: RegistroExitoso }
 ];
 
 const router = new Router({
