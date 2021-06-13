@@ -1,14 +1,10 @@
 <template>
   <div>
-     <b-form-group label="Agregar Turno" label-cols-lg="6" v-slot="{ ariaDescribedby }">
     <b-form-input style="width: 50%"
       id="input-1"
       v-model="turno.tituloTurno"
       type="text"
       placeholder="titulo del turno"
-      label="titulo del turno"
-      :aria-describedby="ariaDescribedby"
-      label-cols-lg="4"
     ></b-form-input>
     <br>
     <b-form-input style="width: 50%"
@@ -16,7 +12,6 @@
       v-model="turno.idProfesor"
       type="text"
       placeholder="nombre del profesor"
-      label-cols-lg="6"
     ></b-form-input>
     <br>
     <b-form-input style="width: 50%"
@@ -24,18 +19,14 @@
       v-model="turno.fecha"
       type="date"
       placeholder="fecha del turno"
-      label-cols-lg="6"
     ></b-form-input>
-    <br>
     <b-form-input style="width: 50%"
       id="input-4"
       v-model="turno.idActividad"
       type="number"
       placeholder="ID de la actividad"
-      label-cols-lg="6"
     ></b-form-input>
-    </b-form-group> 
-    <button class="m-1" @click="agregarTurno()"> Agregar Turno </button>
+    <button class="m-1" @click="modificarTurno()"> Modificar Turno </button>
   </div>
 </template>
 
@@ -48,9 +39,9 @@ export default {
     turno: {}
   }),
   methods: {
-    async agregarTurno(){
+    async modificarTurno(){
       console.log(this.turno)
-      await axios.post(`${ this.$store.state.urlTurnos }/turnos`, this.turno)
+      await axios.put(`${ this.$store.state.urlTurnos }/turnos/${this.turnoId}`, this.turno)
       this.$router.push('/listaTurnos')
     }
   },
