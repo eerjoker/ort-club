@@ -8,8 +8,12 @@
         <router-link to="/listaUsuarios" class="nav-link">Usuarios</router-link>
       </div>
       <div v-if="hayUsuario">
+        <router-link to="/listaTurnos" class="nav-link">Turnos</router-link>
+      </div>
+      <div v-if="hayUsuario">
         <ListadoTiposActividad />
       </div>
+      
     </div>
   </b-sidebar>
 </template>
