@@ -4,7 +4,7 @@
   <ul class="list-unstyled mx-auto w-50">
        <h1>Listado de Turnos</h1>
        <div>
-            <b-button class="m-1" variant="success" @click="agregarTurno()">Agregar Turno</b-button>
+            <b-button class="m-1" variant="success" @click="navegarHaciaView()">Agregar Turno</b-button>
             <input type="text" v-model="buscador" placeholder="Buscador de turnos">
        </div>
       <li v-for="turno in turnosFiltrados" :key="turno.id" class="border">
@@ -30,6 +30,10 @@ export default {
         buscador:''
     }),
     methods:{
+    navegarHaciaView(){
+      let miRuta = '/agregarTurno'
+      this.$router.push(miRuta)
+    },
     async eliminarTurno(turnoId){
      if(confirm("¿Esta seguro que desea eliminar este turno?")){
         this.usuarios.splice(turnoId-1, 1)
