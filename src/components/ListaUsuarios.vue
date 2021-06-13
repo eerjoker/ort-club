@@ -4,11 +4,10 @@
         <div class="d-flex justify-content-between m-1 p-1">
           <p class="my-auto">{{usuario.nombre}}</p>
           <div>
-            <b-button class="m-1">Modificar</b-button>
+            <router-link :to="`/editarUsuario/${usuario.id}`" class="nav-link">Editar</router-link>
             <b-button class="m-1" variant="danger" @click="eliminarUsuario(usuario.id)">Eliminar</b-button>
           </div>         
         </div>
-         
       </li>
   </ul>
 </template>
