@@ -1,41 +1,78 @@
 <template>
   <div>
-     <b-form-group label="Agregar Turno" label-cols-lg="6" v-slot="{ ariaDescribedby }">
-    <b-form-input style="width: 50%"
-      id="input-1"
+    <b-form>
+       <b-container fluid>
+      <b-form-group  
+      id="group-tituloTurno"
+      class="justify-content-between align-middle"
+      label="Titulo del turno:"
+      label-for="titulo" >
+     
+      <b-form-input
+      id="titulo"
       v-model="turno.tituloTurno"
       type="text"
       placeholder="titulo del turno"
-      label="titulo del turno"
-      :aria-describedby="ariaDescribedby"
-      label-cols-lg="4"
-    ></b-form-input>
+      required
+      > </b-form-input>
+      </b-form-group>
+   
     <br>
-    <b-form-input style="width: 50%"
-      id="input-2"
+
+      <b-form-group  
+      id="group-profesor"
+      class="justify-content-between align-middle"
+      label="Nombre del profesor:"
+      label-for="profesor" >
+
+      <b-form-input
+      id="profesor"
       v-model="turno.idProfesor"
       type="text"
       placeholder="nombre del profesor"
-      label-cols-lg="6"
-    ></b-form-input>
+      required
+      ></b-form-input>
+      </b-form-group>
+
     <br>
-    <b-form-input style="width: 50%"
-      id="input-3"
+
+      <b-form-group  
+      id="group-fecha"
+      class="justify-content-between align-middle"
+      label="Fecha del turno:"
+      label-for="fecha" >
+
+      <b-form-input
+      id="fecha"
       v-model="turno.fecha"
       type="date"
       placeholder="fecha del turno"
-      label-cols-lg="6"
-    ></b-form-input>
+      required
+      ></b-form-input>
+      </b-form-group>
+
     <br>
-    <b-form-input style="width: 50%"
-      id="input-4"
+
+      <b-form-group  
+      id="group-actividad"
+      class="justify-content-between align-middle"
+      label="ID de la actividad:"
+      label-for="actividad" >
+
+      <b-form-input
+      id="actividad"
       v-model="turno.idActividad"
       type="number"
-      placeholder="ID de la actividad"
-      label-cols-lg="6"
-    ></b-form-input>
-    </b-form-group> 
-    <button class="m-1" @click="agregarTurno()"> Agregar Turno </button>
+      placeholder="id de la actividad"
+      required
+      ></b-form-input>
+      </b-form-group>
+
+    <br>
+    
+    <b-button variant="success" @click="agregarTurno()"> Agregar Turno </b-button>
+    </b-container>
+    </b-form>
   </div>
 </template>
 
@@ -63,7 +100,7 @@ export default {
       }
       this.turno = turnosResponse.data
     } catch(err) {
-      alert(err.message)
+     // alert(err.message)
     }
   }
 };
