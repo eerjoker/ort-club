@@ -36,4 +36,7 @@ export default {
 .w-30 {
   width: 30%;
 }
+.w-40 {
+  width: 40%;
+}
 </style>

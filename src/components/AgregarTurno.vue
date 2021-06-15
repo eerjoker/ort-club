@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-40 mx-auto">
     <b-form>
        <b-container fluid>
       <b-form-group  
