@@ -1,74 +1,88 @@
 import Vue from "vue";
-import Vuex from 'vuex'
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    url: 'https://60bd1820b8ab3700175a020d.mockapi.io/api/',
-    urlTurnos: 'https://60c5464cec8ef800175e1048.mockapi.io/api',
+    url: "https://60bd1820b8ab3700175a020d.mockapi.io/api/",
+    urlTurnos: "https://60c5464cec8ef800175e1048.mockapi.io/api",
     usuarioActual: null,
     tiposActividad: [
       {
         id: 1,
-        nombre: 'Futbol'
+        nombre: "Futbol",
       },
       {
         id: 2,
-        nombre: 'Basquet'
+        nombre: "Basquet",
       },
       {
         id: 3,
-        nombre: 'Yoga'
+        nombre: "Yoga",
       },
       {
         id: 4,
-        nombre: 'Crossfit'
+        nombre: "Crossfit",
       },
       {
         id: 5,
-        nombre: 'Natación'
+        nombre: "Natación",
       },
       {
         id: 6,
-        nombre: 'Tenis'
-      }
-    ]
+        nombre: "Tenis",
+      },
+    ],
   },
   getters: {
     nombreUsuarioActual: (state) => {
-      if(state.usuarioActual) {
-        return state.usuarioActual.nombre
+      if (state.usuarioActual) {
+        return state.usuarioActual.nombre;
       } else {
-        return ""
+        return "";
       }
     },
     hayUsuario: (state) => {
-      return state.usuarioActual != null
+      return state.usuarioActual != null;
+    },
+    usuarioActualId: (state) => {
+      if (state.usuarioActual) {
+        return state.usuarioActual.id;
+      } else {
+        return "";
+      }
+    },
+    usuarioActualTipo: (state) => {
+      if (state.usuarioActual) {
+        return state.usuarioActual.tipoUsuario;
+      } else {
+        return "";
+      }
     },
     getTiposActividad: (state) => {
-      return state.tiposActividad
+      return state.tiposActividad;
     },
     nombreTipoActividad: (state) => (id) => {
-      return state.tiposActividad.find((t) => t.id == id).nombre
-    }
+      return state.tiposActividad.find((t) => t.id == id).nombre;
+    },
   },
   mutations: {
-    login (state, payload) {
-      state.usuarioActual = payload.usuario
+    login(state, payload) {
+      state.usuarioActual = payload.usuario;
     },
-    logout (state) {
-      state.usuarioActual = null
-    }
+    logout(state) {
+      state.usuarioActual = null;
+    },
   },
   actions: {
-    loguear (context, usuario) {
-      context.commit('login', { usuario })
+    loguear(context, usuario) {
+      context.commit("login", { usuario });
     },
-    desloguear (context) {
-      context.commit('logout')
-    }
-  }
-})
+    desloguear(context) {
+      context.commit("logout");
+    },
+  },
+});
 
-export default store
+export default store;
