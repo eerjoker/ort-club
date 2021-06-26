@@ -14,6 +14,9 @@
         <router-link to="/listaTurnos" class="nav-link">Turnos</router-link>
       </div>
       <div v-if="hayUsuario">
+        <router-link to="/estadisticas" class="nav-link">Estadisticas</router-link>
+      </div>
+      <div v-if="hayUsuario">
         <ListadoTiposActividad />
       </div>
     </div>
