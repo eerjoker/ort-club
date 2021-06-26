@@ -15,13 +15,6 @@ import HomeReservas from "./HomeReservas.vue";
 import Registro from "./Registro.vue";
 
 export default {
-  data() {
-    return {
-      reservas: [],
-      actividades: [],
-      reservasFinal: [],
-    };
-  },
   name: "Home",
   components: {
     HomeReservas,

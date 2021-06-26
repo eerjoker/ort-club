@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="hayUsuario">
-      <Calendar :usuarioId="usuarioActualId" :usuarioTipo="usuarioActualTipo" />
+      <Calendar :reservasFinal="reservasFinal" />
     </div>
   </div>
 </template>
@@ -37,7 +37,6 @@ export default {
     await this.getReservas();
     await this.getActividades();
     this.setReservaFinal();
-    console.log(this.reservasFinal);
   },
   methods: {
     async getReservas() {
