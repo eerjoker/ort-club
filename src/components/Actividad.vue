@@ -3,6 +3,11 @@
     <b-img :src= "this.actividad.imagen" fluid alt="Fluid image"></b-img>
     <h1>{{this.actividad.nombre}}</h1>
     <h3>{{this.actividad.descripcion}}</h3>
+
+    <div>
+      <b-button class="m-1" @click="navegarHaciaView(`agregarTurno`)" variant="success">Agregar Turno</b-button>
+    </div>
+
    <div>
             <b-button class="m-1" variant="success">Reservar Turno</b-button>
             <b-button class="m-1" variant="warning">Modificar Turno</b-button>
@@ -27,7 +32,11 @@ methods:{
     } catch (error) {
       alert(error.message)
     }
-  }
+  },
+  navegarHaciaView(view){
+      let miRuta = `/${view}`
+      this.$router.push(miRuta)
+    }
 },
 async created() {
     this.idActividad = this.$route.params.id
