@@ -5,23 +5,10 @@
 <script>
 import axios from "axios";
 export default {
-  data: () => ({
-    reservas: [],
-    todos: [
-      // {
-      //   description: "Clase de futbol",
-      //   isComplete: false,
-      //   dates: { weekdays: 6 }, // weekdays: Todos los viernes --- days: numero del dia especifico
-      //   color: "red",
-      // },
-    ],
-  }),
-
+  props: ["reservasFinal"],
   computed: {
     attributes() {
-      return [
-        // Attributes todos
-        ...this.todos.map((todo) => ({
+      return this.todo.map((todo) => ({
           dates: todo.dates,
           dot: {
             color: todo.color,
@@ -31,9 +18,16 @@ export default {
             label: todo.description,
           },
           customData: todo,
-        })),
-      ];
+        }));
     },
+    todo() {
+      return this.reservasFinal.map((reserva) => ({
+        dates: new Date(reserva.fecha),
+        color: "red",
+        isComplete: false,
+        description: reserva.nombre
+      }))
+    }
   },
   async created() {
     try {

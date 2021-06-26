@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Reservas</h1>
     <div v-if="hayUsuario">
-      <Calendar :usuarioId="usuarioActualId" :usuarioTipo="usuarioActualTipo" />
+      <Calendar :reservasFinal="reservasFinal" />
     </div> 
 
     <br>
@@ -63,7 +63,6 @@ export default {
     await this.getReservas();
     await this.getActividades();
     this.setReservaFinal();
-    console.log(this.reservasFinal);
   },
   methods: {
     async getReservas() {
