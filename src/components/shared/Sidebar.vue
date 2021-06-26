@@ -1,5 +1,5 @@
 <template>
-  <b-sidebar id="sidebar" sidebar-class="p-3" title="OrtClub" visible="true" shadow>
+  <b-sidebar id="sidebar" sidebar-class="p-3" title="OrtClub" :visible="true" shadow>
     <div>
       <div v-if="!hayUsuario">
         <Login />
@@ -9,7 +9,7 @@
       </div>
       <div v-if="hayUsuario">
         <router-link to="/listaUsuarios" class="nav-link">Usuarios</router-link>
-      </div> 
+      </div>
       <div v-if="hayUsuario">
         <router-link to="/listaTurnos" class="nav-link">Turnos</router-link>
       </div>
