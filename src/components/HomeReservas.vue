@@ -1,7 +1,25 @@
 <template>
-  <div>
+  <div class="container">
+    <h1>Reservas</h1>
     <div v-if="hayUsuario">
       <Calendar :usuarioId="usuarioActualId" :usuarioTipo="usuarioActualTipo" />
+    </div> 
+
+    <br>
+
+    <div  v-if="hayUsuario">
+       <input type="text" v-model="buscador" placeholder="Buscador de reservas"> 
+      <ul class="list-unstyled mx-auto w-50">
+        
+        <br>
+
+      <li v-for="reserva in setReservasBuscador" :key="reserva.id" class="border">
+         <div class="d-flex justify-content-between m-1 p-1">
+          <p class="my-auto">{{reserva.nombre}}</p>
+          <p class="my-auto">{{reserva.fecha}}</p>
+          </div>
+      </li>
+       </ul>
     </div>
   </div>
 </template>
@@ -16,6 +34,8 @@ export default {
       reservas: [],
       actividades: [],
       reservasFinal: [],
+      reservasBuscador: [],
+      buscador:''
     };
   },
   name: "Home",
@@ -32,6 +52,12 @@ export default {
     usuarioActualTipo() {
       return this.$store.getters.usuarioActualTipo;
     },
+    setReservasBuscador(){
+      return this.reservasFinal.filter((reserva)=>{
+                return reserva.nombre.match(this.buscador)
+            })
+
+    }
   },
   async created() {
     await this.getReservas();
