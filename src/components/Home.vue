@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div class="container">
     <div v-if="hayUsuario">
       <HomeReservas />
     </div>
-
     <div class="w-30 p-3 mx-auto" v-if="!hayUsuario">
       <Registro />
     </div>
