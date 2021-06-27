@@ -42,7 +42,6 @@ const routes = [
   { path: "/editarTurno/:id", component: EditarTurno },
   { path: "/registroExitoso", component: RegistroExitoso },
   { path: "/estadisticas", component: Estadisticas},
-  { path: "/testChart", component: Test}
 
 ];
 
