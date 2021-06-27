@@ -1,6 +1,15 @@
 <template>
-  <div class="area">
-    <TestLineChart :chartData="datacollection" :options="options"></TestLineChart>
+  <div class="container">
+    <div>
+      <b-form-select v-model="select" :options="actividadesParaSelect"></b-form-select>
+      <p>{{select}}</p>
+    </div>
+    <div class="area">
+      <TestLineChart
+        :chartData="datacollection"
+        :options="options"
+      ></TestLineChart>
+    </div>
   </div>
 </template>
 
@@ -18,11 +27,14 @@ export default {
       options: null,
       loaded: false,
       reservas: [],
+      actividades: [],
+      select: null
     };
   },
   async mounted() {
     await this.getReservas();
     await this.fillData();
+    await this.getActividades();
   },
   methods: {
     fillData() {
@@ -33,25 +45,25 @@ export default {
             label: "Reservas por moment del dia",
             data: [this.reservasManana, this.reservasTarde, this.reservasNoche],
             backgroundColor: [
-             'rgb(255, 99, 132)',
-             'rgb(54, 162, 235)',
-             'rgb(255, 205, 86)'
+              "rgb(255, 99, 132)",
+              "rgb(54, 162, 235)",
+              "rgb(255, 205, 86)",
             ],
             borderColor: "rgb(255, 99, 132)",
           },
         ],
       }),
         (this.options = {
-         animateRotate: true,
+          animateRotate: true,
           responsive: true,
           legend: {
             display: true,
             position: "top",
           },
-           title: {
-        display: true,
-        text: 'Reservas por momento del dia'
-      }
+          title: {
+            display: true,
+            text: "Reservas por momento del dia",
+          },
         });
     },
     async getReservas() {
@@ -70,14 +82,33 @@ export default {
         alert(err.message);
       }
     },
+    async getActividades() {
+      try {
+        const actividadesResponse = await axios.get(
+          `${this.$store.state.url}/actividades`
+        );
+        if (
+          actividadesResponse.status < 200 ||
+          actividadesResponse.status >= 300
+        ) {
+          throw new Error(
+            "Error al cargar los usuarios: " + actividadesResponse.statusText
+          );
+        }
+        this.actividades = actividadesResponse.data;
+      } catch (err) {
+        alert(err.message);
+      }
+    },
   },
   computed: {
     reservasManana() {
       const reservasManana = [];
+      console.log('Select de metodo ' + this.select)
       for (let reserva of this.reservas) {
         let horaReserva = new Date(reserva.fechaHora).getHours();
-
-        if ((horaReserva < 12) & (horaReserva > 8)) {
+        
+        if ((horaReserva < 12) & (horaReserva > 8) & (this.select < reserva.idActividad)) {
           reservasManana.push(reserva);
         }
       }
@@ -88,7 +119,7 @@ export default {
       const reservasTarde = [];
       for (let reserva of this.reservas) {
         let horaReserva = new Date(reserva.fechaHora).getHours();
-        if ((horaReserva < 18) & (horaReserva > 12)) {
+        if ((horaReserva < 18) & (horaReserva > 12) & this.selected == reserva.idActividad) {
           reservasTarde.push(reserva);
         }
       }
@@ -106,17 +137,25 @@ export default {
 
       return reservasNoche.length;
     },
+    actividadesParaSelect() {
+      const actAux = [];
+      actAux.push({ value: null, text: 'Seleccione una actividad' })
+      for (let act of this.actividades) {
+        actAux.push({ value: act.id, text: act.nombre });
+      }
+      return actAux;
+    },
   },
   async created() {
     await this.getReservas();
     await this.fillData();
+    await this.getActividades();
   },
 };
-
 </script>
 
 <style>
-.area{
+.area {
   width: 500px;
   height: 100px;
   margin: auto;
