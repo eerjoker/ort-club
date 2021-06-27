@@ -1,10 +1,11 @@
 <template>
   <div id="Actividades">
     <h1>Actividades de {{ descripcionTipo }} </h1>
-
+    <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${ -1 }`)" variant="success">Agregar Actividad</b-button>
+    
     <ul>
       <li v-for="actividad in actividades" :key="actividad.id">
-         <button class="btn btn-link" @click="navegarHaciaView(actividad.id)"> {{actividad.nombre}} </button>
+         <button class="btn btn-link" @click="navegarHaciaView(`actividad/${ actividad.id }`)"> {{actividad.nombre}} </button>
       </li>
     </ul>
 
@@ -21,8 +22,8 @@ export default {
     actividades: []
   }),
   methods:{
-    navegarHaciaView(idActividad){
-      let miRuta = '/actividad/' + idActividad
+    navegarHaciaView(view){
+      let miRuta = `/${view}`
       this.$router.push(miRuta)
     },
     async getActividades() {

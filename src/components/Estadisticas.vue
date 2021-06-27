@@ -11,7 +11,7 @@
 import axios from "axios";
 import {line} from 'vue-chartjs'
 export default {
-    name: "Estadisitcas",
+    name: "Estadisticas",
     data() {
         return {
             reservas: [],

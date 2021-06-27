@@ -81,7 +81,6 @@ import axios from 'axios'
 
 export default {
   data: () => ({
-    turnoId: -1,
     turno: {}
   }),
   methods: {
@@ -89,18 +88,6 @@ export default {
       console.log(this.turno)
       await axios.post(`${ this.$store.state.urlTurnos }/turnos`, this.turno)
       this.$router.push('/listaTurnos')
-    }
-  },
-  async created(){
-    this.turnoId = this.$route.params.id
-    try {
-      const turnosResponse = await axios.get(`${ this.$store.state.urlTurnos }/turnos/${this.turnoId}`)
-      if(turnosResponse.status < 200 || turnosResponse.status >= 300) {
-        throw new Error('Error al cargar los turnos: ' + turnosResponse.statusText)
-      }
-      this.turno = turnosResponse.data
-    } catch(err) {
-     // alert(err.message)
     }
   }
 };

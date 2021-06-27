@@ -32,17 +32,17 @@ export default {
         buscador:''
     }),
     methods:{
-    navegarHaciaView(view){
-      let miRuta = `/${view}`
-      this.$router.push(miRuta)
-    },
-    async eliminarTurno(turnoId){
-     if(confirm("¿Esta seguro que desea eliminar este turno?")){
-       this.turnos.splice(turnoId-1, 1)
-        await axios.delete(`${ this.$store.state.urlTurnos }/turnos/${ turnoId }`)
+      navegarHaciaView(view){
+        let miRuta = `/${view}`
+        this.$router.push(miRuta)
+      },
+      async eliminarTurno(turnoId){
+      if(confirm("¿Esta seguro que desea eliminar este turno?")){
+        this.turnos.splice(turnoId-1, 1)
+          await axios.delete(`${ this.$store.state.urlTurnos }/turnos/${ turnoId }`)
+        }
       }
-    }
-        },
+    },
     computed:{
         turnosFiltrados: function(){
             return this.turnos.filter((turno)=>{

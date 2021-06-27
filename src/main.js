@@ -10,6 +10,7 @@ import Home from "./components/Home.vue";
 import Usuario from "./components/Usuario.vue";
 import Actividades from "./components/Actividades.vue";
 import Actividad from "./components/Actividad.vue"
+import AgregarEditarActividad from "./components/AgregarEditarActividad.vue"
 import VCalendar from "v-calendar";
 import ListaUsuarios from './components/ListaUsuarios.vue'
 import EditarUsuario from './components/EditarUsuario.vue'
@@ -22,7 +23,7 @@ import Estadisticas from './components/Estadisticas.vue'
 Vue.use(Router)
    .use(SidebarPlugin)
    .use(VCalendar, {
-  componentPrefix: 'vc',  // Use <vc-calendar /> instead of <v-calendar />
+  componentPrefix: 'vc',
 });
 
 Vue.config.productionTip = false;
@@ -34,6 +35,7 @@ const routes = [
   { path: "/actividades", component: Actividades },
   { path: "/actividades/:id", component: Actividades },
   { path: "/actividad/:id", component: Actividad },
+  { path: "/agregarEditarActividad/:id", component: AgregarEditarActividad },
   { path: "/editarUsuario/:id", component: EditarUsuario },
   { path: "/listaTurnos", component: ListaTurnos },
   { path: "/agregarTurno", component: AgregarTurno },
