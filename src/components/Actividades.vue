@@ -41,7 +41,13 @@ export default {
     },
     async getActividades() {
       try {
-        const actividadesResponse = await axios.get(`${ this.$store.state.url }/actividades?idTipo=${ this.idTipo }`)
+        let url;
+        if (this.vieneDeTipo) {
+          url = `${ this.$store.state.url }/actividades?idTipo=${ this.idTipo }`
+        } else {
+          url = `${ this.$store.state.url }/actividades`
+        }
+        const actividadesResponse = await axios.get(url)
         if(actividadesResponse.status < 200 || actividadesResponse.status >= 300) {
           throw new Error('Error al cargar las actividades: ' + actividadesResponse.statusText)
         }
