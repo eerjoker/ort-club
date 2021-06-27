@@ -1,39 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    url: "https://60bd1820b8ab3700175a020d.mockapi.io/api/",
+    url: "https://60bd1820b8ab3700175a020d.mockapi.io/api",
     urlTurnos: "https://60c5464cec8ef800175e1048.mockapi.io/api",
     usuarioActual: null,
-    tiposActividad: [
-      {
-        id: 1,
-        nombre: "Futbol",
-      },
-      {
-        id: 2,
-        nombre: "Basquet",
-      },
-      {
-        id: 3,
-        nombre: "Yoga",
-      },
-      {
-        id: 4,
-        nombre: "Crossfit",
-      },
-      {
-        id: 5,
-        nombre: "Natación",
-      },
-      {
-        id: 6,
-        nombre: "Tenis",
-      },
-    ],
+    tiposActividad: []
   },
   getters: {
     nombreUsuarioActual: (state) => {
@@ -63,9 +39,14 @@ const store = new Vuex.Store({
     getTiposActividad: (state) => {
       return state.tiposActividad;
     },
-    nombreTipoActividad: (state) => (id) => {
-      return state.tiposActividad.find((t) => t.id == id).nombre;
-    },
+    nombreTipoActividad: (state) => (idTipo) => {
+      const nombre = state.tiposActividad.find(a => a.id == idTipo)
+      if (nombre) {
+        return nombre
+      } else {
+        return ""
+      }
+    }
   },
   mutations: {
     login(state, payload) {
@@ -74,6 +55,9 @@ const store = new Vuex.Store({
     logout(state) {
       state.usuarioActual = null;
     },
+    setTiposActividad(state, payload) {
+      state.tiposActividad = payload.tipos
+    }
   },
   actions: {
     loguear(context, usuario) {
@@ -82,6 +66,17 @@ const store = new Vuex.Store({
     desloguear(context) {
       context.commit("logout");
     },
+    async actualizarTiposActividad(context) {
+      try {
+        const tiposResponse = await axios.get(`${ context.state.url }/tiposActividad`)
+        if(tiposResponse.status < 200 || tiposResponse.status >= 300) {
+          throw new Error('Error al actualizar los tipos de actividades: ' + tiposResponse.statusText)
+        }
+        context.commit("setTiposActividad", { tipos: tiposResponse.data })
+      } catch (err) {
+        err.message
+      }
+    }
   },
 });
 

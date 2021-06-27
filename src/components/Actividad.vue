@@ -18,33 +18,33 @@
 <script>
 import axios from 'axios';
 export default {
-name: "Actividad",
-data:()=>({
+  name: "Actividad",
+  data:()=>({
     idActividad: -1,
     actividad: {},
     imgProps: { width: 320, height: 240 }
   }),
-methods:{
-  async getActividad(){
-    try {
-      const actividadResponse = await axios.get(`${ this.$store.state.url }/actividades/${this.$route.params.id}`)
-      this.actividad = actividadResponse.data
-    } catch (error) {
-      alert(error.message)
+  methods:{
+    async getActividad(){
+      try {
+        const actividadResponse = await axios.get(`${ this.$store.state.url }/actividades/${this.$route.params.id}`)
+        this.actividad = actividadResponse.data
+      } catch (error) {
+        alert(error.message)
+      }
+    },
+    navegarHaciaView(view){
+      let miRuta = `/${view}`
+      this.$router.push(miRuta)
+    },
+    async eliminarActividad(){
+      if(confirm("¿Esta seguro que desea eliminar esta actividad?")){
+        await axios.delete(`${ this.$store.state.url }/actividades/${ this.idActividad }`)
+        this.navegarHaciaView('actividades')
+      }
     }
   },
-  navegarHaciaView(view){
-    let miRuta = `/${view}`
-    this.$router.push(miRuta)
-  },
-  async eliminarActividad(){
-    if(confirm("¿Esta seguro que desea eliminar esta actividad?")){
-      await axios.delete(`${ this.$store.state.url }/actividades/${ this.idActividad }`)
-      this.navegarHaciaView('actividades')
-    }
-  }
-},
-async created() {
+  async created() {
     this.idActividad = this.$route.params.id
     await this.getActividad()
     this.$watch(

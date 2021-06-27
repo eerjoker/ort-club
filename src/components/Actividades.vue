@@ -1,6 +1,6 @@
 <template>
   <div id="Actividades">
-    <h1>Actividades de {{ descripcionTipo }} </h1>
+    <h1 v-if="vieneDeTipo">Actividades de {{ nombreTipo }} </h1>
     <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${ -1 }`)" variant="success">Agregar Actividad</b-button>
     
     <ul>
@@ -40,23 +40,29 @@ export default {
     }
   },
   computed: {
-    descripcionTipo () {
-      if(this.idTipo) {
+    vieneDeTipo () {
+      return this.idTipo > -1
+    },
+    nombreTipo() {
+      if (this.vieneDeTipo) {
         return this.$store.getters.nombreTipoActividad(this.idTipo)
       } else {
         return ""
       }
-    }
+    },
   },
   async created() {
     this.idTipo = this.$route.params.id
+    await this.getNombreTipo()
     await this.getActividades()
     this.$watch(
       () => this.$route.params,
       toParams => {
         // react to route changes...
+        this.nombreTipo = ""
         this.actividades = []
         this.idTipo = toParams.id
+        this.getNombreTipo()
         this.getActividades()
       }
     )

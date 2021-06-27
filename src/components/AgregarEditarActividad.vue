@@ -51,8 +51,8 @@
           ></b-form-select>
         </b-form-group>
 
-        <b-button variant="success" v-if="actividadId == -1" @click="agregarActividad()">Agregar</b-button>
-        <b-button class="m-1" v-if="actividadId != -1" @click="modificarActividad()">Modificar</b-button>
+        <b-button variant="success" v-if="!esEditar" @click="agregarActividad()">Agregar</b-button>
+        <b-button class="m-1" v-if="esEditar" @click="modificarActividad()">Modificar</b-button>
       </b-container>
     </b-form>
   </div>
@@ -68,14 +68,25 @@ export default {
     actividad: {},
     opcionesTipos: []
   }),
+  computed: {
+    esEditar () {
+      return this.actividadId > -1
+    }
+  },
   methods: {
+    navegarHaciaActividad(idActividad){
+      let miRuta = `/actividad/${idActividad}`
+      this.$router.push(miRuta)
+    },
     async agregarActividad(){
       console.log(this.actividad)
-      await axios.post(`${ this.$store.state.url }/actividades`, this.actividad)
+      const nuevaActividad = await axios.post(`${ this.$store.state.url }/actividades`, this.actividad)
+      this.navegarHaciaView(nuevaActividad.id)
     },
     async modificarActividad() {
       console.log(this.actividad);
       await axios.put(`${ this.$store.state.url }/actividades/${this.actividadId}`, this.actividad);
+      this.navegarHaciaView(this.actividadId)
     },
     async obtenerActividad() {
       try {
@@ -92,34 +103,22 @@ export default {
         alert(err.message);
       }
     },
-    async obtenerOpcionesTipos() {
-      try {
-        const tiposResponse = await axios.get(
-          `${ this.$store.state.url }/tiposActividad`
-        );
-        if (tiposResponse.status < 200 || tiposResponse.status >= 300) {
-          throw new Error(
-            "Error al cargar los tipos de actividad: " + tiposResponse.statusText
-          );
-        }
-        for (const tipo of tiposResponse.data) {
-          this.opcionesTipos.push({
-            value: tipo.id,
-            text: tipo.nombre,
-          })
-        }
-      } catch (err) {
-        alert(err.message);
+    obtenerOpcionesTipos() {
+      const tipos = $store.getters.getTiposActividad()
+      for (const tipo of tipos) {
+        this.opcionesTipos.push({
+          value: tipo.id,
+          text: tipo.nombre
+        })
       }
-
     }
   },
   async created() {
     this.actividadId = this.$route.params.id;
-    if (this.actividadId > -1) {
+    if (this.esEditar) {
       await this.obtenerActividad()
     }
-    await this.obtenerOpcionesTipos()
+    this.obtenerOpcionesTipos()
   },
 };
 </script>

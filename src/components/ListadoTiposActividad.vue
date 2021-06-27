@@ -14,6 +14,9 @@ export default {
     tiposActividad () {
       return this.$store.getters.getTiposActividad
     }
+  },
+  created() {
+    this.$store.dispatch('actualizarTiposActividad')
   }
 }
 </script>
