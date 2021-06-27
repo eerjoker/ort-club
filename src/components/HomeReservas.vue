@@ -16,7 +16,6 @@
       <li v-for="reserva in setReservasBuscador" :key="reserva.id" class="border">
          <div class="d-flex justify-content-between m-1 p-1">
           <p class="my-auto">{{reserva.nombre}}</p>
-          <!-- <p class="my-auto">{{new Date(reserva.fecha).toDateString()}}</p> -->
              <p class="my-auto">{{setFormatFecha(reserva.fecha)}}</p>
           </div>
       </li>
@@ -129,7 +128,7 @@ export default {
       const fecha = new Date(fechaAux)
       const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
       const diasSemana = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-      return `${diasSemana[fecha.getDay()]} ${meses[fecha.getMonth()]} ${fecha.getFullYear()} | ${fecha.getHours()}:${fecha.getMinutes()} `
+      return `${diasSemana[fecha.getDay()]} ${fecha.getDate()} de ${meses[fecha.getMonth()]} del ${fecha.getFullYear()} a las ${fecha.getHours()}:${fecha.getMinutes()} `
     }
   },
 };
