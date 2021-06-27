@@ -53,16 +53,13 @@ export default {
   },
   async created() {
     this.idTipo = this.$route.params.id
-    await this.getNombreTipo()
     await this.getActividades()
     this.$watch(
       () => this.$route.params,
       toParams => {
         // react to route changes...
-        this.nombreTipo = ""
         this.actividades = []
         this.idTipo = toParams.id
-        this.getNombreTipo()
         this.getActividades()
       }
     )

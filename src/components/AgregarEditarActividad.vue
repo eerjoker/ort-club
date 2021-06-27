@@ -66,7 +66,10 @@ export default {
   data: () => ({
     actividadId: -1,
     actividad: {},
-    opcionesTipos: []
+    opcionesTipos: [{
+      value: null,
+      text: 'Elija un tipo'
+    }]
   }),
   computed: {
     esEditar () {
@@ -104,7 +107,7 @@ export default {
       }
     },
     obtenerOpcionesTipos() {
-      const tipos = $store.getters.getTiposActividad()
+      const tipos = this.$store.getters.getTiposActividad
       for (const tipo of tipos) {
         this.opcionesTipos.push({
           value: tipo.id,

@@ -40,9 +40,9 @@ const store = new Vuex.Store({
       return state.tiposActividad;
     },
     nombreTipoActividad: (state) => (idTipo) => {
-      const nombre = state.tiposActividad.find(a => a.id == idTipo)
-      if (nombre) {
-        return nombre
+      const tipo = state.tiposActividad.find(a => a.id == idTipo)
+      if (tipo) {
+        return tipo.nombre
       } else {
         return ""
       }
