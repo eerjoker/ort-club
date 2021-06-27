@@ -16,7 +16,6 @@
             <b-button class="m-1" variant="danger" @click="eliminarTurno(turno.id)">Eliminar</b-button>
           </div>         
         </div>
-         
       </li>
   
   </ul>

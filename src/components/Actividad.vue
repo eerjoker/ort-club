@@ -7,11 +7,6 @@
     <div>
       <b-button class="m-1" @click="navegarHaciaView(`agregarTurno`)" variant="success">Agregar Turno</b-button>
     </div>
-
-    <div>
-      <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${actividad.id}`)">Modificar</b-button>
-      <b-button class="m-1" variant="danger" @click="eliminarActividad(actividad.id)">Eliminar</b-button>
-    </div>
   </div>
 </template>
 
