@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <div>
-      <b-form-select v-model="select" :options="actividadesParaSelect"></b-form-select>
-      <p>{{select}}</p>
+      <b-form-select
+        v-model="seleccion"
+        :options="actividadesParaSelect"
+      ></b-form-select>
     </div>
     <div class="area">
       <TestLineChart
@@ -28,13 +30,19 @@ export default {
       loaded: false,
       reservas: [],
       actividades: [],
-      select: null
+      seleccion: null,
     };
   },
   async mounted() {
     await this.getReservas();
     await this.fillData();
     await this.getActividades();
+    this.$watch(
+      () => this.seleccion,
+      () => {
+       this.fillData()
+      }
+    );
   },
   methods: {
     fillData() {
@@ -104,11 +112,16 @@ export default {
   computed: {
     reservasManana() {
       const reservasManana = [];
-      console.log('Select de metodo ' + this.select)
+      console.log("Select de metodo " + this.seleccion);
+
       for (let reserva of this.reservas) {
         let horaReserva = new Date(reserva.fechaHora).getHours();
-        
-        if ((horaReserva < 12) & (horaReserva > 8) & (this.select < reserva.idActividad)) {
+
+        if (
+          (horaReserva < 12) &&
+          (horaReserva >= 8) &&
+          (this.seleccion == reserva.idActividad)
+        ) {
           reservasManana.push(reserva);
         }
       }
@@ -119,7 +132,11 @@ export default {
       const reservasTarde = [];
       for (let reserva of this.reservas) {
         let horaReserva = new Date(reserva.fechaHora).getHours();
-        if ((horaReserva < 18) & (horaReserva > 12) & this.selected == reserva.idActividad) {
+        if (
+          (horaReserva < 18) &&
+          (horaReserva >= 12) &&
+          (this.seleccion == reserva.idActividad)
+        ) {
           reservasTarde.push(reserva);
         }
       }
@@ -130,7 +147,8 @@ export default {
       const reservasNoche = [];
       for (let reserva of this.reservas) {
         let horaReserva = new Date(reserva.fechaHora).getHours();
-        if (horaReserva < 23 && horaReserva > 18) {
+        if ((horaReserva < 23) && (horaReserva >= 18)  &&
+          (this.seleccion == reserva.idActividad)) {
           reservasNoche.push(reserva);
         }
       }
@@ -139,18 +157,19 @@ export default {
     },
     actividadesParaSelect() {
       const actAux = [];
-      actAux.push({ value: null, text: 'Seleccione una actividad' })
+      actAux.push({ value: null, text: "Seleccione una actividad" });
       for (let act of this.actividades) {
+        console.log("act aux: " + act.id);
         actAux.push({ value: act.id, text: act.nombre });
       }
       return actAux;
     },
   },
-  async created() {
-    await this.getReservas();
-    await this.fillData();
-    await this.getActividades();
-  },
+  // async created() {
+  //   await this.getReservas();
+  //   await this.fillData();
+  //   await this.getActividades();
+  // },
 };
 </script>
 
