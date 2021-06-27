@@ -20,6 +20,8 @@ import EditarTurno from './components/EditarTurno.vue'
 import RegistroExitoso from './components/RegistroExitoso.vue'
 import Estadisticas from './components/Estadisticas.vue'
 
+
+
 Vue.use(Router)
    .use(SidebarPlugin)
    .use(VCalendar, {
@@ -41,7 +43,8 @@ const routes = [
   { path: "/agregarTurno", component: AgregarTurno },
   { path: "/editarTurno/:id", component: EditarTurno },
   { path: "/registroExitoso", component: RegistroExitoso },
-  { path: "/estadisticas", component: Estadisticas}
+  { path: "/estadisticas", component: Estadisticas},
+
 ];
 
 const router = new Router({

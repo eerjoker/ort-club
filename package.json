@@ -11,7 +11,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0",
     "bootstrap-vue": "^2.21.2",
-    "chart.js": "^3.4.0",
+    "chart.js": "^2.9.4",
     "core-js": "^3.6.5",
     "es6-promise": "^4.2.8",
     "v-calendar": "^2.3.0",
