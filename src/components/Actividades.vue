@@ -2,7 +2,7 @@
   <div id="Actividades">
     <input type="text" v-model="buscador" placeholder="Buscador de reservas"> 
     <h1 v-if="vieneDeTipo">Actividades de {{ nombreTipo }} </h1>
-    <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${ -1 }`)" variant="success">Agregar Actividad</b-button>
+    <b-button v-if="esEmpleado" class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${ -1 }`)" variant="success">Agregar Actividad</b-button>
 
     <ul class="list-unstyled mx-auto w-50">
       <li v-for="actividad in setActividadesBuscador" :key="actividad.id" class="border">
