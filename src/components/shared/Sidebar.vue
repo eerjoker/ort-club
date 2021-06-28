@@ -13,7 +13,7 @@
       <div v-if="hayUsuario && !esSocio">
         <router-link to="/listaTurnos" class="nav-link">Turnos</router-link>
       </div>
-      <div v-if="hayUsuario && !esSocio">
+      <div v-if="hayUsuario">
         <router-link to="/actividades" class="nav-link">Actividades:</router-link>
       </div>
       <div v-if="hayUsuario">
