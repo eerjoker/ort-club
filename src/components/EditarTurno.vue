@@ -28,7 +28,7 @@
         >
           <b-form-input
             id="profesor"
-            v-model="turno.idProfesor"
+            v-model="turno.profesor"
             type="text"
             placeholder="nombre del profesor"
             required
@@ -60,13 +60,12 @@
           label="ID de la actividad:"
           label-for="actividad"
         >
-          <b-form-input
+          <b-form-select
             id="actividad"
             v-model="turno.idActividad"
-            type="number"
-            placeholder="id de la actividad"
+            :options="opcionesActividades"
             required
-          ></b-form-input>
+          ></b-form-select>
         </b-form-group>
 
         <b-button class="m-1" @click="modificarTurno()">Modificar Turno</b-button>
@@ -82,6 +81,10 @@ export default {
   data: () => ({
     turnoId: -1,
     turno: {},
+    opcionesActividades: [{
+      value: -1,
+      text: 'Elija una actividad'
+    }]
   }),
   methods: {
     async modificarTurno() {
@@ -92,22 +95,44 @@ export default {
       );
       this.$router.push("/listaTurnos");
     },
+    async getTurnos() {
+      try {
+        const turnosResponse = await axios.get(
+          `${this.$store.state.urlTurnos}/turnos/${this.turnoId}`
+        );
+        if (turnosResponse.status < 200 || turnosResponse.status >= 300) {
+          throw new Error(
+            "Error al cargar los turnos: " + turnosResponse.statusText
+          );
+        }
+        this.turno = turnosResponse.data;
+      } catch (err) {
+        alert(err.message);
+      }
+    },
+    async getOpcionesActividades() {
+      try {
+        const actividadesResponse = await axios.get(`${ this.$store.state.url }/actividades`)
+        if (actividadesResponse.status < 200 || actividadesResponse.status >= 300) {
+          throw new Error(
+            "Error al cargar las actividades: " + actividadesResponse.statusText
+          );
+        }
+        for (const actividad of actividadesResponse.data) {
+          this.opcionesActividades.push({
+            value: actividad.id,
+            text: actividad.nombre
+          })
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
   },
   async created() {
-    this.turnoId = this.$route.params.id;
-    try {
-      const turnosResponse = await axios.get(
-        `${this.$store.state.urlTurnos}/turnos/${this.turnoId}`
-      );
-      if (turnosResponse.status < 200 || turnosResponse.status >= 300) {
-        throw new Error(
-          "Error al cargar los turnos: " + turnosResponse.statusText
-        );
-      }
-      this.turno = turnosResponse.data;
-    } catch (err) {
-      alert(err.message);
-    }
+    this.turnoId = this.$route.params.id ? this.$route.params.id : -1
+    await this.getTurnos()
+    await this.getOpcionesActividades()
   },
 };
 </script>

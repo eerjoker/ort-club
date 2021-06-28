@@ -17,6 +17,9 @@
         <router-link to="/estadisticas" class="nav-link">Estadisticas</router-link>
       </div>
       <div v-if="hayUsuario">
+        <router-link to="/actividades" class="nav-link">Actividades:</router-link>
+      </div>
+      <div v-if="hayUsuario">
         <ListadoTiposActividad />
       </div>
     </div>
@@ -37,9 +40,6 @@ export default {
     hayUsuario () {
       return this.$store.getters.hayUsuario
     }
-  },
-  created() {
-    this.$root.$emit('bv::toggle::collapse', 'sidebar')
   }
 }
 </script>
