@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex w-40 mx-auto">
+  <div class="w-40 mx-auto">
     <b-button variant="success" v-if="!reserva" @click="agregarReserva()">Reservar</b-button>
     <b-button class="m-1" v-if="reserva" @click="cancelarReserva()">Cancelar Reserva</b-button>
   </div>
@@ -27,11 +27,12 @@ export default {
     async agregarReserva(){
       this.reserva = {
         idUsuario: this.idUsuario,
-        idActividad: this.turno.idActividad,
+        idActividad: this.turnoActual.idActividad,
         idTurno: this.idTurno,
-        fechaHora: this.turno.fecha
+        fechaHora: this.turnoActual.fecha
       }
       await axios.post(`${ this.$store.state.url }/reservas`, this.reserva)
+      alert('Se reservó correctamente')
     },
     async cancelarReserva() {
       await axios.delete(`${ this.$store.state.url }/reservas/${this.reserva.id}`);
