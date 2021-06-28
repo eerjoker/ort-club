@@ -11,7 +11,7 @@
       <li v-for="turno in turnosFiltrados" :key="turno.id" class="border">
         <div class="d-flex justify-content-between m-1 p-1">
           <div>
-            <p class="my-auto">{{turno.fecha}}</p>
+            <p class="my-auto">{{setFormatFecha(turno.fecha)}}</p>
             <small>Profesor: {{turno.profesor}}</small>
           </div>
           <div v-if="esEmpleado">
@@ -20,6 +20,8 @@
           </div>
           <OpcionesReservaTurnos :idTurno="turno.id" v-if="esSocio"/>
         </div>
+        
+        
       </li>
   
   </ul>
@@ -77,7 +79,13 @@ export default {
           return dateA - dateB
         });
         this.turnos = this.turnos.filter((turno) => new Date(turno.fecha) > new Date())
-      }
+      },
+      setFormatFecha(fechaAux){
+      const fecha = new Date(fechaAux)
+      const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+      const diasSemana = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+      return `${diasSemana[fecha.getDay()]} ${fecha.getDate()} de ${meses[fecha.getMonth()]} del ${fecha.getFullYear()} a las ${fecha.getHours()}:${fecha.getMinutes()} `
+    },
     },
     computed:{
       esEmpleado () {
