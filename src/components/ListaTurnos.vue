@@ -10,11 +10,15 @@
       
       <li v-for="turno in turnosFiltrados" :key="turno.id" class="border">
         <div class="d-flex justify-content-between m-1 p-1">
-          <p class="my-auto">{{turno.profesor}} - {{turno.fecha}}</p>
+          <div>
+            <p class="my-auto">{{turno.fecha}}</p>
+            <small>Profesor: {{turno.profesor}}</small>
+          </div>
           <div>
             <b-button class="m-1" @click="navegarHaciaView(`editarTurno/${turno.id}`)">Modificar</b-button>
             <b-button class="m-1" variant="danger" @click="eliminarTurno(turno.id)">Eliminar</b-button>
-          </div>         
+          </div>
+          <OpcionesReservaTurnos :idTurno="turno.id" v-if="esSocio"/>
         </div>
       </li>
   
@@ -71,6 +75,12 @@ export default {
       }
     },
     computed:{
+      esEmpleado () {
+        return this.$store.getters.usuarioActualTipo == "admin" || this.$store.getters.usuarioActualTipo == "empleado"
+      },
+      esSocio () {
+        return this.$store.gettes.usuarioActualTipo == "socio"
+      },
       turnosFiltrados: function(){
           return this.turnos.filter((turno)=>{
               return turno.tituloTurno.match(this.buscador)
