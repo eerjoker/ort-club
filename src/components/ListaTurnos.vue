@@ -10,7 +10,7 @@
       
       <li v-for="turno in turnosFiltrados" :key="turno.id" class="border">
         <div class="d-flex justify-content-between m-1 p-1">
-          <p class="my-auto">{{turno.tituloTurno}}</p>
+          <p class="my-auto">{{turno.profesor}} - {{turno.fecha}}</p>
           <div>
             <b-button class="m-1" @click="navegarHaciaView(`editarTurno/${turno.id}`)">Modificar</b-button>
             <b-button class="m-1" variant="danger" @click="eliminarTurno(turno.id)">Eliminar</b-button>
@@ -83,6 +83,7 @@ export default {
     },
     async created() {
       await this.getTurnos()
+      console.log(this.turnos)
       this.ordenarTurnosPorFecha()
     },
 }
