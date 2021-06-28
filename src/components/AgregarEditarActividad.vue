@@ -117,7 +117,7 @@ export default {
     }
   },
   async created() {
-    this.actividadId = this.$route.params.id;
+    this.actividadId = this.$route.params.id ? this.$route.params.id : -1
     if (this.esEditar) {
       await this.obtenerActividad()
     }

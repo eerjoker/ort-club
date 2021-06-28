@@ -27,7 +27,7 @@
 
       <b-form-input
       id="profesor"
-      v-model="turno.idProfesor"
+      v-model="turno.profesor"
       type="text"
       placeholder="nombre del profesor"
       required
@@ -59,13 +59,12 @@
       label="ID de la actividad:"
       label-for="actividad" >
 
-      <b-form-input
+      <b-form-select
       id="actividad"
       v-model="turno.idActividad"
-      type="number"
-      placeholder="id de la actividad"
+      :options="opcionesActividades"
       required
-      ></b-form-input>
+      ></b-form-select>
       </b-form-group>
 
     <br>
@@ -81,14 +80,84 @@ import axios from 'axios'
 
 export default {
   data: () => ({
-    turno: {}
+    idActividad: -1,
+    turno: {},
+    opcionesActividades: []
   }),
+  computed: {
+    vieneDeActividad () {
+      return this.idActividad > -1
+    }
+  },
   methods: {
     async agregarTurno(){
       console.log(this.turno)
       await axios.post(`${ this.$store.state.urlTurnos }/turnos`, this.turno)
       this.$router.push('/listaTurnos')
+    },
+    async getActividadOrigen() {
+      try {
+        const actividadResponse = await axios.get(`${ this.$store.state.url }/actividades/${ this.idActividad }`)
+        if (actividadResponse.status < 200 || actividadResponse.status >= 300) {
+          throw new Error(
+            "Error al cargar la actividad de origen: " + actividadResponse.statusText
+          );
+        }
+        console.log(actividadResponse.data);
+        if (actividadResponse.data) {
+          this.opcionesActividades.push({
+            value: actividadResponse.data.id,
+            text: actividadResponse.data.nombre
+          })
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    },
+    async getOpcionesActividades() {
+      try {
+        const actividadesResponse = await axios.get(`${ this.$store.state.url }/actividades`)
+        if (actividadesResponse.status < 200 || actividadesResponse.status >= 300) {
+          throw new Error(
+            "Error al cargar las actividades: " + actividadesResponse.statusText
+          );
+        }
+        this.opcionesActividades.push({
+          value: -1,
+          text: 'Elija una actividad'
+        })
+        for (const actividad of actividadesResponse.data) {
+          this.opcionesActividades.push({
+            value: actividad.id,
+            text: actividad.nombre
+          })
+        }
+      } catch (err) {
+        alert(err.message);
+      }
     }
+  },
+  async created() {
+    this.idActividad = this.$route.params.id ? this.$route.params.id : -1
+    console.log(this.idActividad)
+    if (this.vieneDeActividad) {
+      await this.getActividadOrigen()
+    } else {
+      await this.getOpcionesActividades()
+    }
+    this.$watch(
+      () => this.$route.params,
+      async (toParams) => {
+        // react to route changes...
+        this.opcionesActividades = []
+        this.idActividad = toParams.id
+        if (this.vieneDeActividad) {
+          await this.getActividadOrigen()
+        } else {
+          await this.getOpcionesActividades()
+        }
+      }
+    )
   }
 };
 </script>

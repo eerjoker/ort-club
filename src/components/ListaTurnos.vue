@@ -2,7 +2,7 @@
 <template>
 <div class="container">
   <ul class="list-unstyled mx-auto w-50">
-       <h1>Listado de Turnos</h1>
+       <h1 v-if="!vieneDeActividad">Listado de Turnos</h1>
        <div v-if="!vieneDeActividad">
             <b-button class="m-1" variant="success" @click="navegarHaciaView('agregarTurno')">Agregar Turno</b-button>
             <input type="text" v-model="buscador" placeholder="Buscador de turnos">
@@ -32,7 +32,6 @@ export default {
     }),
     props: {
       idActividad: {
-        type: Number,
         default: -1
       }
     },
@@ -45,7 +44,7 @@ export default {
         try {
           let url
           if (this.vieneDeActividad) {
-            url = `${ this.$store.state.urlTurnos }/turnos/${ this.idActividad }`
+            url = `${ this.$store.state.urlTurnos }/turnos?idActividad=${ this.idActividad }`
           } else {
             url = `${ this.$store.state.urlTurnos }/turnos`
           }

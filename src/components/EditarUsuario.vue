@@ -43,7 +43,7 @@ export default {
     }
   },
   async created(){
-    this.userId = this.$route.params.id
+    this.userId = this.$route.params.id ? this.$route.params.id : -1
     try {
       const usuariosResponse = await axios.get(`${ this.$store.state.url }/usuarios/${this.userId}`)
       if(usuariosResponse.status < 200 || usuariosResponse.status >= 300) {

@@ -70,7 +70,7 @@ export default {
     },
   },
   async created() {
-    this.idTipo = this.$route.params.id
+    this.idTipo = this.$route.params.id ? this.$route.params.id : -1
     await this.getActividades()
     this.$watch(
       () => this.$route.params,

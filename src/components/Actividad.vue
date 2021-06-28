@@ -5,13 +5,18 @@
     <h3>{{this.actividad.descripcion}}</h3>
 
     <div>
-      <b-button class="m-1" @click="navegarHaciaView(`agregarTurno`)" variant="success">Agregar Turno</b-button>
+      <b-button class="m-1" @click="navegarHaciaView(`agregarTurno/${ idActividad }`)" variant="success">Agregar Turno</b-button>
     </div>
+
+    <ListaTurnos :idActividad="idActividad"/>
+
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ListaTurnos from './ListaTurnos.vue'
+
 export default {
   name: "Actividad",
   data:()=>({
@@ -19,10 +24,13 @@ export default {
     actividad: {},
     imgProps: { width: 320, height: 240 }
   }),
+  components: {
+    ListaTurnos
+  },
   methods:{
     async getActividad(){
       try {
-        const actividadResponse = await axios.get(`${ this.$store.state.url }/actividades/${this.$route.params.id}`)
+        const actividadResponse = await axios.get(`${ this.$store.state.url }/actividades/${this.idActividad}`)
         this.actividad = actividadResponse.data
       } catch (error) {
         alert(error.message)
@@ -34,7 +42,7 @@ export default {
     }
   },
   async created() {
-    this.idActividad = this.$route.params.id
+    this.idActividad = this.$route.params.id ? this.$route.params.id : -1
     await this.getActividad()
     this.$watch(
       () => this.$route.params,

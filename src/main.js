@@ -41,6 +41,7 @@ const routes = [
   { path: "/editarUsuario/:id", component: EditarUsuario },
   { path: "/listaTurnos", component: ListaTurnos },
   { path: "/agregarTurno", component: AgregarTurno },
+  { path: "/agregarTurno/:id", component: AgregarTurno },
   { path: "/editarTurno/:id", component: EditarTurno },
   { path: "/registroExitoso", component: RegistroExitoso },
   { path: "/estadisticas", component: Estadisticas},
