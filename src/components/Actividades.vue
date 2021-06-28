@@ -2,18 +2,11 @@
   <div id="Actividades">
     <h1 v-if="vieneDeTipo">Actividades de {{ nombreTipo }} </h1>
     <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${ -1 }`)" variant="success">Agregar Actividad</b-button>
-    
-    <!-- <ul>
-      <li v-for="actividad in actividades" :key="actividad.id">
-         <button class="btn btn-link" @click="navegarHaciaView(`actividad/${ actividad.id }`)"> {{actividad.nombre}} </button>
-      </li>
-    </ul> -->
 
     <ul class="list-unstyled mx-auto w-50">
       <li v-for="actividad in actividades" :key="actividad.id" class="border">
         <div class="d-flex justify-content-between m-1 p-1">
           <button class="btn btn-link" @click="navegarHaciaView(`actividad/${ actividad.id }`)"> {{actividad.nombre}} </button>
-          <!-- <p class="my-auto">{{actividad.nombre}}</p> -->
           <div>
             <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${actividad.id}`)">Modificar</b-button>
             <b-button class="m-1" variant="danger" @click="eliminarActividad(actividad.id)">Eliminar</b-button>

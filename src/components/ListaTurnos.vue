@@ -63,20 +63,27 @@ export default {
         this.turnos.splice(turnoId-1, 1)
           await axios.delete(`${ this.$store.state.urlTurnos }/turnos/${ turnoId }`)
         }
+      },
+      ordenarTurnosPorFecha(){
+        this.turnos.sort(function (a, b) {
+          var dateA = new Date(a.fecha), dateB = new Date(b.fecha)
+          return dateA - dateB
+        });
       }
     },
     computed:{
-        turnosFiltrados: function(){
-            return this.turnos.filter((turno)=>{
-                return turno.tituloTurno.match(this.buscador)
-            })
-        },
-        vieneDeActividad () {
-          return this.idActividad > -1
-        }
+      turnosFiltrados: function(){
+          return this.turnos.filter((turno)=>{
+              return turno.tituloTurno.match(this.buscador)
+          })
+      },
+      vieneDeActividad () {
+        return this.idActividad > -1
+      }
     },
     async created() {
       await this.getTurnos()
+      this.ordenarTurnosPorFecha()
     },
 }
 </script>
