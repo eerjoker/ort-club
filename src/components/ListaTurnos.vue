@@ -3,7 +3,7 @@
 <div class="container">
   <ul class="list-unstyled mx-auto w-50">
        <h1>Listado de Turnos</h1>
-       <div>
+       <div v-if="!vieneDeActividad">
             <b-button class="m-1" variant="success" @click="navegarHaciaView('agregarTurno')">Agregar Turno</b-button>
             <input type="text" v-model="buscador" placeholder="Buscador de turnos">
        </div>
@@ -30,10 +30,33 @@ export default {
         turnos: [],
         buscador:''
     }),
+    props: {
+      idActividad: {
+        type: Number,
+        default: -1
+      }
+    },
     methods:{
       navegarHaciaView(view){
         let miRuta = `/${view}`
         this.$router.push(miRuta)
+      },
+      async getTurnos() {
+        try {
+          let url
+          if (this.vieneDeActividad) {
+            url = `${ this.$store.state.urlTurnos }/turnos/${ this.idActividad }`
+          } else {
+            url = `${ this.$store.state.urlTurnos }/turnos`
+          }
+          const turnosResponse = await axios.get(url)
+          if(turnosResponse.status < 200 || turnosResponse.status >= 300) {
+            throw new Error('Error al cargar los turnos: ' + turnosResponse.statusText)
+          }
+          this.turnos = turnosResponse.data
+        } catch(err) {
+          alert(err.message)
+        }
       },
       async eliminarTurno(turnoId){
       if(confirm("¿Esta seguro que desea eliminar este turno?")){
@@ -47,18 +70,13 @@ export default {
             return this.turnos.filter((turno)=>{
                 return turno.tituloTurno.match(this.buscador)
             })
+        },
+        vieneDeActividad () {
+          return this.idActividad > -1
         }
     },
     async created() {
-        try {
-      const turnosResponse = await axios.get(`${ this.$store.state.urlTurnos }/turnos`)
-      if(turnosResponse.status < 200 || turnosResponse.status >= 300) {
-        throw new Error('Error al cargar los turnos: ' + turnosResponse.statusText)
-      }
-      this.turnos = turnosResponse.data
-    } catch(err) {
-      alert(err.message)
-    }
+      await this.getTurnos()
     },
 }
 </script>
