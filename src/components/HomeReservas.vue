@@ -15,7 +15,7 @@
 
       <li v-for="reserva in setReservasBuscador" :key="reserva.id" class="border">
          <div class="d-flex justify-content-between m-1 p-1">
-          <p class="my-auto">{{reserva.nombre}}</p>
+          <button class="btn btn-link" @click="navegarHaciaView(`actividad/${ reserva.idActividad }`)"> {{reserva.nombre}} </button>
              <p class="my-auto">{{setFormatFecha(reserva.fecha)}}</p>
           </div>
       </li>
@@ -124,6 +124,7 @@ export default {
         this.reservasFinal.push({
           nombre: this.getNombreActividad(reserva.idActividad),
           fecha: reserva.fechaHora,
+          idActividad: reserva.idActividad
         });
       }
       this.reservasFinal = this.reservasFinal.filter((reserva) => new Date(reserva.fecha) > new Date())
@@ -133,6 +134,10 @@ export default {
       const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
       const diasSemana = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
       return `${diasSemana[fecha.getDay()]} ${fecha.getDate()} de ${meses[fecha.getMonth()]} del ${fecha.getFullYear()} a las ${fecha.getHours()}:${fecha.getMinutes()} `
+    },
+    navegarHaciaView(view){
+      let miRuta = `/${view}`
+      this.$router.push(miRuta)
     }
   },
 };
