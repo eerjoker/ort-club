@@ -15,8 +15,8 @@
           <button class="btn btn-link" @click="navegarHaciaView(`actividad/${ actividad.id }`)"> {{actividad.nombre}} </button>
           <!-- <p class="my-auto">{{actividad.nombre}}</p> -->
           <div>
-            <b-button class="m-1">Modificar</b-button>
-            <b-button class="m-1" variant="danger">Eliminar</b-button>
+            <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${actividad.id}`)">Modificar</b-button>
+            <b-button class="m-1" variant="danger" @click="eliminarActividad(actividad.id)">Eliminar</b-button>
           </div>         
         </div>
       </li>
@@ -38,6 +38,12 @@ export default {
     navegarHaciaView(view){
       let miRuta = `/${view}`
       this.$router.push(miRuta)
+    },
+    async eliminarActividad(idActividad){
+      if(confirm("¿Esta seguro que desea eliminar esta actividad?")){
+        await axios.delete(`${ this.$store.state.url }/actividades/${ idActividad }`)
+        this.navegarHaciaView('actividades')
+      }
     },
     async getActividades() {
       try {

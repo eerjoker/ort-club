@@ -31,12 +31,6 @@ export default {
     navegarHaciaView(view){
       let miRuta = `/${view}`
       this.$router.push(miRuta)
-    },
-    async eliminarActividad(){
-      if(confirm("¿Esta seguro que desea eliminar esta actividad?")){
-        await axios.delete(`${ this.$store.state.url }/actividades/${ this.idActividad }`)
-        this.navegarHaciaView('actividades')
-      }
     }
   },
   async created() {
