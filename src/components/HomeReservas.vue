@@ -119,12 +119,14 @@ export default {
         var dateA = new Date(a.fechaHora), dateB = new Date(b.fechaHora)
         return dateA - dateB
       });
+      
       for (let reserva of this.reservas) {
         this.reservasFinal.push({
           nombre: this.getNombreActividad(reserva.idActividad),
           fecha: reserva.fechaHora,
         });
       }
+      this.reservasFinal = this.reservasFinal.filter((reserva) => new Date(reserva.fecha) > new Date())
     },
     setFormatFecha(fechaAux){
       const fecha = new Date(fechaAux)
