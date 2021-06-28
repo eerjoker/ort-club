@@ -54,11 +54,9 @@ export default {
     },
     setReservasBuscador(){
       return this.reservasFinal.filter((reserva)=>{
-                return reserva.nombre.match(this.buscador)
-            })
-
+        return reserva.nombre.match(this.buscador)
+      })
     }
-    
   },
   async created() {
     await this.getReservas();
@@ -117,6 +115,10 @@ export default {
       }
     },
     async setReservaFinal() {
+      this.reservas.sort(function (a, b) {
+        var dateA = new Date(a.fechaHora), dateB = new Date(b.fechaHora)
+        return dateA - dateB
+      });
       for (let reserva of this.reservas) {
         this.reservasFinal.push({
           nombre: this.getNombreActividad(reserva.idActividad),
