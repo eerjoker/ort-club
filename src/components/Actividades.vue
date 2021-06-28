@@ -29,11 +29,6 @@ export default {
     actividades: [],
     buscador:''
   }),
-  computed: {
-    esEmpleado () {
-      return this.$store.getters.usuarioActualTipo == "admin" || this.$store.getters.usuarioActualTipo == "empleado"
-    }
-  },
   methods:{
     navegarHaciaView(view){
       let miRuta = `/${view}`
@@ -79,6 +74,9 @@ export default {
       return this.actividades.filter((actividad)=>{
         return actividad.nombre.match(this.buscador)
       })
+    },
+    esEmpleado () {
+      return this.$store.getters.usuarioActualTipo == "admin" || this.$store.getters.usuarioActualTipo == "empleado"
     }
   },
   async created() {
