@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   props: ["reservasFinal"],
   computed: {
@@ -28,22 +27,7 @@ export default {
         description: reserva.nombre
       }))
     }
-  },
-  async created() {
-    try {
-      const reservasResponse = await axios.get(
-        `${this.$store.state.url}/reservas`
-      );
-      if (reservasResponse.status < 200 || reservasResponse.status >= 300) {
-        throw new Error(
-          "Error al cargar los usuarios: " + reservasResponse.statusText
-        );
-      }
-      this.reservas = reservasResponse.data;
-    } catch (err) {
-      alert(err.message);
-    }
-  },
+  }
 };
 </script>
 
