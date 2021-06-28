@@ -4,7 +4,7 @@
     <h1>{{this.actividad.nombre}}</h1>
     <h3>{{this.actividad.descripcion}}</h3>
 
-    <div>
+    <div v-if="esEmpleado">
       <b-button class="m-1" @click="navegarHaciaView(`agregarTurno/${ idActividad }`)" variant="success">Agregar Turno</b-button>
     </div>
 
@@ -26,6 +26,11 @@ export default {
   }),
   components: {
     ListaTurnos
+  },
+  computed: {
+    esEmpleado () {
+      return this.$store.getters.usuarioActualTipo == "admin" || this.$store.getters.usuarioActualTipo == "empleado"
+    }
   },
   methods:{
     async getActividad(){

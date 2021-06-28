@@ -1,6 +1,6 @@
 <template>
-  <div class="w-40 mx-auto">
-    <b-button variant="success" v-if="!reserva" @click="agregarReserva()">Reservar</b-button>
+  <div class="ml-auto">
+    <b-button class="m-1" variant="success" v-if="!reserva" @click="agregarReserva()">Reservar</b-button>
     <b-button class="m-1" v-if="reserva" @click="cancelarReserva()">Cancelar Reserva</b-button>
   </div>
 </template>

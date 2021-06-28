@@ -39,7 +39,6 @@ export default {
     },
     esSocio(){
       return this.$store.getters.usuarioActualTipo == "socio"
-
     }
   }
 }

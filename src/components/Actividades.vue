@@ -8,7 +8,7 @@
       <li v-for="actividad in setActividadesBuscador" :key="actividad.id" class="border">
         <div class="d-flex justify-content-between m-1 p-1">
           <button class="btn btn-link" @click="navegarHaciaView(`actividad/${ actividad.id }`)"> {{actividad.nombre}} </button>
-          <div>
+          <div v-if="esEmpleado">
             <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${actividad.id}`)">Modificar</b-button>
             <b-button class="m-1" variant="danger" @click="eliminarActividad(actividad.id)">Eliminar</b-button>
           </div>         
@@ -29,6 +29,11 @@ export default {
     actividades: [],
     buscador:''
   }),
+  computed: {
+    esEmpleado () {
+      return this.$store.getters.usuarioActualTipo == "admin" || this.$store.getters.usuarioActualTipo == "empleado"
+    }
+  },
   methods:{
     navegarHaciaView(view){
       let miRuta = `/${view}`
