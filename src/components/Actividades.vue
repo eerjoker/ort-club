@@ -1,10 +1,11 @@
 <template>
   <div id="Actividades">
+    <input type="text" v-model="buscador" placeholder="Buscador de reservas"> 
     <h1 v-if="vieneDeTipo">Actividades de {{ nombreTipo }} </h1>
     <b-button class="m-1" @click="navegarHaciaView(`agregarEditarActividad/${ -1 }`)" variant="success">Agregar Actividad</b-button>
 
     <ul class="list-unstyled mx-auto w-50">
-      <li v-for="actividad in actividades" :key="actividad.id" class="border">
+      <li v-for="actividad in setActividadesBuscador" :key="actividad.id" class="border">
         <div class="d-flex justify-content-between m-1 p-1">
           <button class="btn btn-link" @click="navegarHaciaView(`actividad/${ actividad.id }`)"> {{actividad.nombre}} </button>
           <div>
@@ -25,7 +26,8 @@ export default {
   name: "Actividades",
   data:()=>({
     idTipo: -1,
-    actividades: []
+    actividades: [],
+    buscador:''
   }),
   methods:{
     navegarHaciaView(view){
@@ -68,6 +70,11 @@ export default {
         return ""
       }
     },
+    setActividadesBuscador(){
+      return this.actividades.filter((actividad)=>{
+        return actividad.nombre.match(this.buscador)
+      })
+    }
   },
   async created() {
     this.idTipo = this.$route.params.id ? this.$route.params.id : -1
