@@ -72,6 +72,7 @@ export default {
           var dateA = new Date(a.fecha), dateB = new Date(b.fecha)
           return dateA - dateB
         });
+        this.turnos = this.turnos.filter((turno) => new Date(turno.fecha) > new Date())
       }
     },
     computed:{
