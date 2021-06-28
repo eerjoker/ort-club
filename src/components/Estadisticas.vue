@@ -1,51 +1,93 @@
 <template>
-  <div class="container">
-    <div>
-      <b-form-select
-        v-model="seleccion"
-        :options="actividadesParaSelect"
-      ></b-form-select>
-    </div>
+  <div >
+    <h1>Estadisticas Especiales</h1>
     <div class="area">
-      <TestLineChart
-        :chartData="datacollection"
-        :options="options"
-      ></TestLineChart>
+      <b-card class="mb-6">
+        <b-card-text>
+          <div>
+            <div>
+              <b-form-select
+                v-model="seleccion"
+                :options="actividadesParaSelect"
+              ></b-form-select>
+            </div>
+            <div>
+              <DonutChart
+                :chartData="datacollection"
+                :options="options"
+              ></DonutChart>
+            </div>
+          </div>
+        </b-card-text>
+      </b-card>
+
+      <b-card class="mb-6">
+        <div>
+          <div>
+            <LineChart
+              :chartData="datacollectionLine"
+              :options="optionsLine"
+            ></LineChart>
+          </div>
+        </div>
+      </b-card>
     </div>
+   
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import TestLineChart from "./donutChart.js";
+import DonutChart from "./donutChart.js";
+import LineChart from "./lineChart.js";
+import colorLib from "@kurkle/color";
 
 export default {
   components: {
-    TestLineChart,
+    DonutChart,
+    LineChart,
   },
   data() {
     return {
       datacollection: null,
       options: null,
+      datacollectionLine: null,
+      optionsLine: null,
       loaded: false,
       reservas: [],
       actividades: [],
       seleccion: null,
+      meses: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ],
     };
   },
   async mounted() {
     await this.getReservas();
-    await this.fillData();
+    await this.fillDataDonut();
+    await this.fillDataLine();
     await this.getActividades();
     this.$watch(
       () => this.seleccion,
       () => {
-       this.fillData()
+        this.fillDataDonut();
+        this.fillDataLine();
       }
     );
   },
   methods: {
-    fillData() {
+    fillDataDonut() {
       (this.datacollection = {
         labels: ["Mañana", "Tarde", "Noche"],
         datasets: [
@@ -108,19 +150,47 @@ export default {
         alert(err.message);
       }
     },
+    fillDataLine() {
+      (this.datacollectionLine = {
+        labels: this.meses,
+        datasets: [
+          {
+            label: "Reservas Mensuales",
+            data: this.reservasPorMes,
+            backgroundColor: this.transparentize("rgb(255, 99, 132)", 1),
+            borderColor: "rgb(255, 99, 132)",
+          },
+        ],
+      }),
+        (this.optionsLine = {
+          
+          responsive: true,
+          legend: {
+            display: true,
+            position: "top",
+          },
+          title: {
+            display: true,
+            text: "Reservas Anuales",
+          },
+        });
+    },
+    transparentize(value, opacity) {
+      const alpha = opacity === undefined ? 0.5 : 1 - opacity;
+      return colorLib(value).alpha(alpha).rgbString();
+    },
   },
   computed: {
     reservasManana() {
       const reservasManana = [];
-      console.log("Select de metodo " + this.seleccion);
 
       for (let reserva of this.reservas) {
         let horaReserva = new Date(reserva.fechaHora).getHours();
 
         if (
-          (horaReserva < 12) &&
-          (horaReserva >= 8) &&
-          (this.seleccion == reserva.idActividad)
+          horaReserva < 12 &&
+          horaReserva >= 8 &&
+          this.seleccion == reserva.idActividad
         ) {
           reservasManana.push(reserva);
         }
@@ -133,9 +203,9 @@ export default {
       for (let reserva of this.reservas) {
         let horaReserva = new Date(reserva.fechaHora).getHours();
         if (
-          (horaReserva < 18) &&
-          (horaReserva >= 12) &&
-          (this.seleccion == reserva.idActividad)
+          horaReserva < 18 &&
+          horaReserva >= 12 &&
+          this.seleccion == reserva.idActividad
         ) {
           reservasTarde.push(reserva);
         }
@@ -147,8 +217,11 @@ export default {
       const reservasNoche = [];
       for (let reserva of this.reservas) {
         let horaReserva = new Date(reserva.fechaHora).getHours();
-        if ((horaReserva < 23) && (horaReserva >= 18)  &&
-          (this.seleccion == reserva.idActividad)) {
+        if (
+          horaReserva < 23 &&
+          horaReserva >= 18 &&
+          this.seleccion == reserva.idActividad
+        ) {
           reservasNoche.push(reserva);
         }
       }
@@ -159,17 +232,21 @@ export default {
       const actAux = [];
       actAux.push({ value: null, text: "Seleccione una actividad" });
       for (let act of this.actividades) {
-        console.log("act aux: " + act.id);
         actAux.push({ value: act.id, text: act.nombre });
       }
       return actAux;
     },
+    reservasPorMes() {
+      const reservasAnual = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      for (let reserva of this.reservas) {
+        let mesReserva = new Date(reserva.fechaHora).getMonth();
+
+        reservasAnual[mesReserva] += 1;
+      }
+
+      return reservasAnual;
+    },
   },
-  // async created() {
-  //   await this.getReservas();
-  //   await this.fillData();
-  //   await this.getActividades();
-  // },
 };
 </script>
 
