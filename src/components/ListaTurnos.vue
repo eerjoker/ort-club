@@ -83,7 +83,6 @@ export default {
     },
     async created() {
       await this.getTurnos()
-      console.log(this.turnos)
       this.ordenarTurnosPorFecha()
     },
 }
