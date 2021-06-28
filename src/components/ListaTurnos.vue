@@ -14,7 +14,7 @@
             <p class="my-auto">{{turno.fecha}}</p>
             <small>Profesor: {{turno.profesor}}</small>
           </div>
-          <div>
+          <div v-if="esEmpleado">
             <b-button class="m-1" @click="navegarHaciaView(`editarTurno/${turno.id}`)">Modificar</b-button>
             <b-button class="m-1" variant="danger" @click="eliminarTurno(turno.id)">Eliminar</b-button>
           </div>
@@ -28,12 +28,16 @@
 
 <script>
 import axios from 'axios';
+import OpcionesReservaTurnos from './OpcionesReservaTurnos.vue'
 
 export default {
     data:()=>({
         turnos: [],
         buscador:''
     }),
+    components: {
+      OpcionesReservaTurnos
+    },
     props: {
       idActividad: {
         default: -1
@@ -80,7 +84,7 @@ export default {
         return this.$store.getters.usuarioActualTipo == "admin" || this.$store.getters.usuarioActualTipo == "empleado"
       },
       esSocio () {
-        return this.$store.gettes.usuarioActualTipo == "socio"
+        return this.$store.getters.usuarioActualTipo == "socio"
       },
       turnosFiltrados: function(){
           return this.turnos.filter((turno)=>{

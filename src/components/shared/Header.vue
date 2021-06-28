@@ -29,6 +29,7 @@ export default {
   methods: {
     desloguear() {
       this.$store.dispatch('desloguear')
+      this.$router.push('/')
     }
   },
   computed: {
